@@ -19,7 +19,7 @@
   --cyan:      #60d4f0;
   --glow-g:    rgba(232,200,112,0.35);
   --glow-l:    rgba(167,139,202,0.35);
-  /* Theme vars (overridden by active theme) */
+  /* Theme vars — valeurs par défaut (thème nebula) */
   --th-bg1:    #04030a;
   --th-bg2:    #07061a;
   --th-acc1:   #a78bca;
@@ -31,23 +31,24 @@
   --font-body:  'Crimson Pro', serif;
 }
 
-/* ── THEMES ── */
-body.theme-abyss {
+/* ── THEMES ── appliqués via data-theme sur <html> */
+[data-theme="abyss"] {
   --th-bg1:#00101a; --th-bg2:#001c2e; --th-acc1:#60d4f0; --th-acc2:#0af0c0;
   --th-star1:#90e8ff; --th-star2:#0af0c0; --th-star3:#60d4f0;
 }
-body.theme-inferno {
+[data-theme="inferno"] {
   --th-bg1:#1a0500; --th-bg2:#2e0f00; --th-acc1:#e8c870; --th-acc2:#ff7040;
   --th-star1:#f5dfa0; --th-star2:#ff9060; --th-star3:#e8c870;
 }
-body.theme-midnight {
+[data-theme="midnight"] {
   --th-bg1:#000005; --th-bg2:#05050f; --th-acc1:#4060ff; --th-acc2:#8080ff;
   --th-star1:#a0b0ff; --th-star2:#8080ff; --th-star3:#6070e0;
 }
-body.theme-aurora {
+[data-theme="aurora"] {
   --th-bg1:#060010; --th-bg2:#100520; --th-acc1:#ff60a0; --th-acc2:#a060ff;
   --th-star1:#ff90c0; --th-star2:#c080ff; --th-star3:#60ffb0;
 }
+/* nebula = défaut :root, pas besoin d'attribut */
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
 html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--ink));font-family:var(--font-body);color:var(--silver);transition:background .6s;}
@@ -156,20 +157,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--i
 .go-val{font-family:var(--font-title);font-weight:700;font-size:24px;color:#fff;}
 .go-lbl{font-size:9px;letter-spacing:.3em;color:rgba(200,212,232,0.3);margin-top:4px;}
 
-/* ════ SHOP (rebuilt) ════ */
+/* ════ SHOP ════ */
 #shop{background:rgba(4,3,10,0.97);padding:20px;overflow-y:auto;}
 .shop-header{font-family:var(--font-title);font-size:clamp(18px,5vw,26px);letter-spacing:.25em;color:var(--gold);text-align:center;margin-top:50px;margin-bottom:4px;}
 .shop-sub{font-size:11px;letter-spacing:.4em;color:rgba(200,212,232,0.25);text-align:center;margin-bottom:10px;}
 .gems-bar{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-title);font-size:16px;color:var(--cyan);margin-bottom:28px;}
 .shop-section{width:min(400px,94vw);margin:0 auto 28px;}
 .shop-section-title{font-size:9px;letter-spacing:.5em;color:rgba(200,212,232,0.25);margin-bottom:14px;text-transform:uppercase;}
-
-/* tab system */
 .shop-tabs{display:flex;gap:6px;justify-content:center;width:min(400px,94vw);margin:0 auto 24px;}
 .shop-tab{flex:1;font-family:var(--font-title);font-size:9px;letter-spacing:.25em;padding:10px 6px;border:1px solid rgba(255,255,255,0.08);border-radius:4px;background:rgba(255,255,255,0.02);color:rgba(200,212,232,0.3);cursor:pointer;transition:all .2s;}
 .shop-tab.active{background:rgba(232,200,112,0.1);border-color:rgba(232,200,112,0.3);color:var(--gold);}
-
-/* theme cards */
 .theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .theme-card{border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .25s;position:relative;}
 .theme-card.owned.active-theme{border-color:var(--gold);box-shadow:0 0 20px rgba(232,200,112,0.3);}
@@ -184,8 +181,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--i
 .theme-badge.active{background:rgba(232,200,112,0.9);color:#000;}
 .theme-badge.owned{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);}
 .theme-badge.locked{background:rgba(0,0,0,0.5);color:rgba(255,255,255,0.3);}
-
-/* skin cards */
 .skin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 .skin-card{border-radius:10px;border:2px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);padding:14px 8px;text-align:center;cursor:pointer;transition:all .25s;position:relative;}
 .skin-card.owned.active-skin{border-color:var(--gold);background:rgba(232,200,112,0.08);box-shadow:0 0 15px rgba(232,200,112,0.2);}
@@ -197,8 +192,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--i
 .skin-badge{position:absolute;top:6px;right:6px;font-size:7px;font-family:var(--font-title);letter-spacing:.15em;padding:2px 6px;border-radius:10px;}
 .skin-badge.active{background:rgba(232,200,112,0.9);color:#000;}
 .skin-badge.owned-badge{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
-
-/* shop items grid */
 .shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .shop-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .2s;}
 .shop-item:hover{border-color:rgba(232,200,112,0.3);background:rgba(232,200,112,0.05);}
@@ -213,14 +206,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--i
 .gem-pack-val{font-family:var(--font-title);font-size:20px;color:var(--cyan);}
 .gem-pack-label{font-size:9px;color:rgba(200,212,232,0.3);margin:4px 0;}
 .gem-pack-price{font-family:var(--font-title);font-size:13px;color:var(--gold);}
-
-/* ── SHARED ── */
 .btn-gold{font-family:var(--font-title);font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--ink);background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;padding:16px 32px;border-radius:4px;cursor:pointer;box-shadow:0 0 25px rgba(232,200,112,0.2);transition:transform .15s;}
 .btn-ghost{font-family:var(--font-title);font-size:11px;letter-spacing:.3em;color:rgba(200,212,232,0.4);background:transparent;border:1px solid rgba(200,212,232,0.12);padding:14px 28px;border-radius:4px;cursor:pointer;transition:all .2s;}
 .btn-ghost:hover{color:rgba(200,212,232,0.8);border-color:rgba(200,212,232,0.3);}
 .btn-gold:active,.btn-ghost:active{transform:scale(.95);}
-
-/* ── EFFECTS ── */
 .tap-ring{position:fixed;z-index:100;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--gold);transform:translate(-50%,-50%) scale(0);animation:tapAnim .5s ease-out forwards;pointer-events:none;}
 @keyframes tapAnim{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
 .float-pt{position:fixed;z-index:100;font-family:var(--font-title);font-size:16px;pointer-events:none;animation:floatUp .9s ease-out forwards;}
@@ -238,11 +227,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--i
 .lives-empty-icon{font-size:48px;margin-bottom:16px;}
 .lives-empty-title{font-family:var(--font-title);font-size:20px;color:var(--rose);margin-bottom:8px;}
 .lives-empty-desc{font-size:13px;font-weight:300;color:rgba(200,212,232,0.4);line-height:1.6;margin-bottom:20px;}
-
-/* ── BOMB WARNING PULSE ── */
-@keyframes bombPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.25)}}
-@keyframes fuseFlicker{0%,100%{opacity:1}50%{opacity:.4}}
-
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(232,200,112,0.2);border-radius:3px;}
@@ -391,7 +375,13 @@ function ss(d){localStorage.setItem('sf4',JSON.stringify(d))}
 function getSave(){return gs()}
 function putSave(d){ss(d)}
 function getGems(){return gs().gems||0}
-function addGems(n){const d=gs();d.gems=(d.gems||0)+n;ss(d);refreshGemUI();}
+function addGems(n){
+  const d=gs();
+  const mult=tempBonus.doubleGems?2:1;
+  d.gems=(d.gems||0)+(n*mult);
+  if(tempBonus.doubleGems){tempBonus.doubleGems=false;}
+  ss(d);refreshGemUI();
+}
 function spendGems(n){const d=gs();if((d.gems||0)<n)return false;d.gems=(d.gems||0)-n;ss(d);refreshGemUI();return true;}
 function refreshGemUI(){const g=getGems();document.querySelectorAll('#gem-count-shop,#gem-count-hud').forEach(el=>{if(el)el.textContent=g;});}
 function getLvlData(i){const d=gs();return d['l'+i]||{stars:0,unlocked:i===0};}
@@ -400,8 +390,12 @@ function getTotalStars(){let s=0;for(let i=0;i<LEVELS.length;i++)s+=getLvlData(i
 function getUnlocked(){let c=0;for(let i=0;i<LEVELS.length;i++)if(getLvlData(i).unlocked)c++;return c;}
 function getOwned(k){return gs()['own_'+k]||false;}
 function setOwned(k){const d=gs();d['own_'+k]=true;ss(d);}
+
+// ── FIX THÈME : stockage + application via data-theme sur <html> ──
 function getActiveTheme(){return gs().activeTheme||'nebula';}
 function setActiveTheme(id){const d=gs();d.activeTheme=id;ss(d);applyTheme(id);}
+
+// ── FIX SKIN : stockage simple ──
 function getActiveSkin(){return gs().activeSkin||'classic';}
 function setActiveSkin(id){const d=gs();d.activeSkin=id;ss(d);}
 
@@ -417,20 +411,26 @@ function spendLife(){const{lives,lastRegen}=getLivesData();if(lives<=0)return fa
 function refillLives(){saveLives(MAX_LIVES,Date.now());}
 
 // ══════════════════════════════════════════
-// 🎨 THEMES
+// 🎨 THEMES — FIX : data-theme sur <html> au lieu de classes sur <body>
 // ══════════════════════════════════════════
 const THEMES=[
-  {id:'nebula',   name:'Nébuleuse', free:true,  cost:0,   class:'',              colors:['#a78bca','#c8a8f0','#e8c870'], desc:'Le thème originel, violet mystique'},
-  {id:'abyss',    name:'Abysses',   free:false, cost:60,  class:'theme-abyss',   colors:['#001c2e','#60d4f0','#0af0c0'], desc:'Profondeurs marines lumineuses'},
-  {id:'inferno',  name:'Inferno',   free:false, cost:80,  class:'theme-inferno', colors:['#2e0f00','#e8c870','#ff7040'], desc:'Chaleur volcanique ardente'},
-  {id:'midnight', name:'Minuit',    free:false, cost:50,  class:'theme-midnight',colors:['#000005','#4060ff','#8080ff'], desc:'Obscurité électrique absolue'},
-  {id:'aurora',   name:'Aurore',    free:false, cost:100, class:'theme-aurora',  colors:['#100520','#ff60a0','#a060ff'], desc:'Aurore boréale rose et violette'},
+  {id:'nebula',   name:'Nébuleuse', free:true,  cost:0,   colors:['#a78bca','#c8a8f0','#e8c870'], desc:'Le thème originel, violet mystique'},
+  {id:'abyss',    name:'Abysses',   free:false, cost:60,  colors:['#001c2e','#60d4f0','#0af0c0'], desc:'Profondeurs marines lumineuses'},
+  {id:'inferno',  name:'Inferno',   free:false, cost:80,  colors:['#2e0f00','#e8c870','#ff7040'], desc:'Chaleur volcanique ardente'},
+  {id:'midnight', name:'Minuit',    free:false, cost:50,  colors:['#000005','#4060ff','#8080ff'], desc:'Obscurité électrique absolue'},
+  {id:'aurora',   name:'Aurore',    free:false, cost:100, colors:['#100520','#ff60a0','#a060ff'], desc:'Aurore boréale rose et violette'},
 ];
 
 function applyTheme(id){
-  const t=THEMES.find(x=>x.id===id)||THEMES[0];
-  document.body.className=document.body.className.replace(/theme-\S+/g,'').trim();
-  if(t.class)document.body.classList.add(t.class);
+  // Utilise data-theme sur <html> — les CSS vars cascadent correctement sur tout le document
+  const valid=THEMES.find(t=>t.id===id);
+  if(!valid){document.documentElement.removeAttribute('data-theme');return;}
+  if(id==='nebula'){
+    // nebula = valeurs par défaut dans :root, on retire l'attribut
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', id);
+  }
 }
 
 // ══════════════════════════════════════════
@@ -441,10 +441,11 @@ const SKINS=[
   {id:'crystal', name:'Cristal',   free:false, cost:40, em:['💎','🔷','🔹','💠'], bombEm:'🧨', desc:'Éclats de cristal'},
   {id:'fire',    name:'Feu',       free:false, cost:60, em:['🔥','✦','⚡','🌟'], bombEm:'💣', desc:'Brûlant et explosif'},
   {id:'ice',     name:'Glace',     free:false, cost:55, em:['❄️','🌨','✦','⛄'], bombEm:'☠️', desc:'Froid glacial'},
-  {id:'cosmos',  name:'Cosmos',    free:false, cost:70, em:['🌙','⭐','🌠','☀️'], bombEm:'🪐', desc:'Voyage dans l\'univers'},
+  {id:'cosmos',  name:'Cosmos',    free:false, cost:70, em:['🌙','⭐','🌠','☀️'], bombEm:'🪐', desc:"Voyage dans l'univers"},
   {id:'neon',    name:'Néon',      free:false, cost:45, em:['◈','◉','◆','✦'],  bombEm:'⊗',  desc:'Géométrie lumineuse'},
 ];
 
+// FIX SKIN : fonction centralisée qui lit le skin actif en temps réel
 function getActiveSkinData(){return SKINS.find(s=>s.id===getActiveSkin())||SKINS[0];}
 
 // ══════════════════════════════════════════
@@ -504,23 +505,28 @@ let spawnIv=null,tickIv=null,animFr=null;
 let shakeX=0,shakeY=0,shakeMag=0;
 let powerActive=false,powerType=null,powerTimer=null,slowFactor=1;
 
-// Star types — em filled dynamically from active skin
+// FIX SKIN : getTypes() lit le skin actif à chaque appel — correct.
+// FIX : bomb est identifié par special='bomb', pas par index — robuste.
 function getTypes(){
   const sk=getActiveSkinData();
   return[
-    {t:'a',em:sk.em[0],pts:10,col:'#c8a8f0',sz:36,w:35},
-    {t:'b',em:sk.em[1],pts:20,col:'#90e8ff',sz:32,w:30},
-    {t:'c',em:sk.em[2],pts:15,col:'#f5dfa0',sz:34,w:25},
-    {t:'gold',em:sk.em[3],pts:50,col:'#ffd700',sz:40,w:6,special:'gold'},
-    {t:'bomb',em:sk.bombEm,pts:-1,col:'#e07090',sz:38,w:0,special:'bomb'},
+    {t:'a',  em:sk.em[0], pts:10, col:'#c8a8f0', sz:36, w:35, special:''},
+    {t:'b',  em:sk.em[1], pts:20, col:'#90e8ff', sz:32, w:30, special:''},
+    {t:'c',  em:sk.em[2], pts:15, col:'#f5dfa0', sz:34, w:25, special:''},
+    {t:'gold',em:sk.em[3],pts:50, col:'#ffd700', sz:40, w:6,  special:'gold'},
+    {t:'bomb',em:sk.bombEm,pts:-1,col:'#e07090', sz:38, w:0,  special:'bomb'},
   ];
 }
 
+// FIX : pickType cherche la bombe par special='bomb', pas par index fixe
 function pickType(bomb){
   const TYPES=getTypes();
-  if(bomb)return TYPES[4];
-  const pool=TYPES.slice(0,4),tw=pool.reduce((s,t)=>s+t.w,0);
-  let r=Math.random()*tw;for(const t of pool){r-=t.w;if(r<=0)return t;}return pool[0];
+  if(bomb) return TYPES.find(t=>t.special==='bomb');
+  const pool=TYPES.filter(t=>t.special!=='bomb');
+  const tw=pool.reduce((s,t)=>s+t.w,0);
+  let r=Math.random()*tw;
+  for(const t of pool){r-=t.w;if(r<=0)return t;}
+  return pool[0];
 }
 
 const gc2=document.getElementById('gc');const gx2=gc2.getContext('2d');
@@ -532,13 +538,14 @@ window.addEventListener('resize',resizeGC);resizeGC();
 // ══════════════════════════════════════════
 function startLevel(idx){
   if(!spendLife()){showNoLivesModal();return;}
-  getCtx();startMusic();applyTheme(getActiveTheme());
+  getCtx();startMusic();
+  // FIX : applyTheme appelé ici pour s'assurer que le thème est à jour au lancement
+  applyTheme(getActiveTheme());
   curLvl=idx;score=0;combo=0;maxCombo=0;caught=0;
   objs=[];parts=[];trails=[];running=true;
   const lv=LEVELS[idx];
   timeLeft=lv.time;startT=Date.now();
   shakeMag=0;powerActive=false;powerType=null;slowFactor=1;
-  // apply temp bonuses
   if(tempBonus.extraTime){timeLeft+=10;tempBonus.extraTime=false;}
   if(tempBonus.noBombs){lv._noBombs=true;}
 
@@ -578,7 +585,7 @@ function updateObjBar(){
 }
 
 // ══════════════════════════════════════════
-// 🌟 SPAWN
+// 🌟 SPAWN — FIX : lit le skin actif au moment du spawn via getTypes()
 // ══════════════════════════════════════════
 function spawnObj(){
   if(!running)return;
@@ -600,13 +607,11 @@ function burst(x,y,col,n=10,big=false){for(let i=0;i<n;i++){const a=Math.PI*2*i/
 function shake(m=10,d=350){shakeMag=m;setTimeout(()=>{shakeMag=0;shakeX=0;shakeY=0;},d);}
 
 // ══════════════════════════════════════════
-// 🎨 DRAW BOMB — distinct visual
+// 🎨 DRAW BOMB
 // ══════════════════════════════════════════
 function drawBomb(o){
   const ctx=gx2,x=o.x,y=o.y,t=o.age*0.05;
   o.age++;
-
-  // danger ring (pulsing)
   const pulse=0.6+0.4*Math.abs(Math.sin(t*3));
   ctx.save();
   ctx.beginPath();ctx.arc(x,y,o.sz*0.9*pulse,0,Math.PI*2);
@@ -614,15 +619,11 @@ function drawBomb(o){
   ctx.lineWidth=2;ctx.shadowColor='#ff3030';ctx.shadowBlur=12*pulse;
   ctx.stroke();
   ctx.restore();
-
-  // outer danger ring 2
   ctx.save();
   ctx.beginPath();ctx.arc(x,y,o.sz*1.3,0,Math.PI*2);
   ctx.strokeStyle=`rgba(255,0,0,${0.15*pulse})`;
   ctx.lineWidth=1;ctx.stroke();
   ctx.restore();
-
-  // fuse spark
   const sparkX=x+Math.cos(t*8)*4;
   const sparkY=y-o.sz*0.7+Math.sin(t*8)*3;
   ctx.save();
@@ -630,21 +631,15 @@ function drawBomb(o){
   ctx.fillStyle=`hsl(${40+Math.random()*30},100%,70%)`;
   ctx.shadowColor='#ffaa00';ctx.shadowBlur=8;
   ctx.fill();ctx.restore();
-
-  // skull/emoji body
   ctx.save();ctx.globalAlpha=o.alpha;
   ctx.translate(x,y);
   ctx.rotate(Math.sin(o.wobble)*0.1);
-  // red glow bg
   ctx.beginPath();ctx.arc(0,0,o.sz*0.6,0,Math.PI*2);
   ctx.fillStyle=`rgba(200,0,0,${0.15*pulse})`;ctx.fill();
-  // emoji
   ctx.font=`${o.sz}px serif`;ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.shadowColor='#ff2020';ctx.shadowBlur=20;
   ctx.fillText(o.em,0,0);
   ctx.restore();
-
-  // WARNING triangle
   ctx.save();ctx.globalAlpha=0.7*pulse;
   ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.fillStyle='#ff4444';ctx.shadowColor='#ff0000';ctx.shadowBlur=6;
@@ -661,30 +656,27 @@ function gameLoop(){
   gx2.save();gx2.translate(shakeX,shakeY);
   gx2.clearRect(-shakeX-2,-shakeY-2,gc2.width+4,gc2.height+4);
 
-  // trails
   for(let i=trails.length-1;i>=0;i--){
     const tr=trails[i];tr.life-=.06;if(tr.life<=0){trails.splice(i,1);continue;}
     gx2.save();gx2.globalAlpha=tr.life*.3;gx2.fillStyle=tr.col;gx2.shadowColor=tr.col;gx2.shadowBlur=6;
     gx2.beginPath();gx2.arc(tr.x,tr.y,tr.sz*tr.life,0,Math.PI*2);gx2.fill();gx2.restore();
   }
 
-  // objects
   for(let i=objs.length-1;i>=0;i--){
     const o=objs[i];
     const sf=powerActive&&powerType==='slow'?0.45:1;
     o.y+=o.vy*sf;o.x+=o.vx;o.wobble+=.04;
 
-    if(o.t!=='bomb')trails.push({x:o.x,y:o.y,col:o.col,sz:o.sz/8,life:1});
+    if(o.special!=='bomb')trails.push({x:o.x,y:o.y,col:o.col,sz:o.sz/8,life:1});
 
     if(o.y>gc2.height+80){
-      if(o.t!=='bomb'){SFX.miss();loseLife();combo=0;updateCombo();}
+      if(o.special!=='bomb'){SFX.miss();loseLife();combo=0;updateCombo();}
       objs.splice(i,1);continue;
     }
 
     if(o.special==='bomb'){
       drawBomb(o);
     } else {
-      // gold ring
       if(o.special==='gold'){
         gx2.save();
         gx2.beginPath();gx2.arc(o.x,o.y,o.sz*.85,0,Math.PI*2);
@@ -701,7 +693,6 @@ function gameLoop(){
     }
   }
 
-  // particles
   for(let i=parts.length-1;i>=0;i--){
     const p=parts[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.life-=.03;if(p.life<=0){parts.splice(i,1);continue;}
     gx2.save();gx2.globalAlpha=p.life;gx2.fillStyle=p.col;gx2.shadowColor=p.col;gx2.shadowBlur=6;
@@ -713,7 +704,7 @@ function gameLoop(){
 }
 
 // ══════════════════════════════════════════
-// 👆 TAP
+// 👆 TAP — FIX : comparaison par special='bomb' au lieu de t==='bomb'
 // ══════════════════════════════════════════
 function handleTap(cx,cy){
   if(!running)return;
@@ -723,7 +714,7 @@ function handleTap(cx,cy){
     const o=objs[i];
     if(Math.hypot(cx-o.x,cy-o.y)<o.sz+16){
       objs.splice(i,1);
-      if(o.t==='bomb'){
+      if(o.special==='bomb'){
         if(powerActive&&powerType==='shield'){burst(o.x,o.y,'#a78bca',14);floatTxt(o.x,o.y,'🛡 BOUCLIER','#a78bca');powerActive=false;clearTimeout(powerTimer);}
         else{burst(o.x,o.y,'#e07090',16,true);shake();flash('rgba(224,112,144,0.18)');SFX.bomb();loseLife();combo=0;updateCombo();floatTxt(o.x,o.y,'💥 BOMBE','#e07090');}
       }else{
@@ -784,7 +775,7 @@ function endGame(won){
 }
 
 // ══════════════════════════════════════════
-// 🛍 SHOP (tabbed)
+// 🛍 SHOP
 // ══════════════════════════════════════════
 let activeShopTab='themes';
 function switchShopTab(tab,el){
@@ -832,7 +823,6 @@ function renderThemes(c){
   }).join('')}</div>`;
   c.appendChild(sec);
 
-  // desc below
   const desc=document.createElement('p');desc.style.cssText='font-size:11px;color:rgba(200,212,232,0.25);text-align:center;margin-top:8px;font-style:italic;';
   desc.textContent=THEMES.find(t=>t.id===active)?.desc||'';
   c.appendChild(desc);
@@ -860,18 +850,17 @@ function renderSkins(c){
   <div class="skin-grid">${SKINS.map(sk=>{
     const owned=sk.free||getOwned('skin_'+sk.id);
     const isActive=activeSkin===sk.id;
-    const col=sk.em[3]==='✶'?'#ffd700':sk.em[0]==='💎'?'#90e8ff':sk.em[0]==='🔥'?'#ff6030':'#60d4f0';
+    const col=sk.id==='crystal'?'#90e8ff':sk.id==='fire'?'#ff6030':sk.id==='ice'?'#a0d8ff':sk.id==='cosmos'?'#ffe080':sk.id==='neon'?'#60ffc0':'#c8a8f0';
     return `<div class="skin-card ${owned?(isActive?'owned active-skin':'owned'):''}" onclick="handleSkinClick('${sk.id}')">
-      ${owned?`<span class="skin-badge ${isActive?'active':'owned-badge'}">${isActive?'ON':' ✓'}</span>`:''}
+      ${owned?`<span class="skin-badge ${isActive?'active':'owned-badge'}">${isActive?'ON':'✓'}</span>`:''}
       <span class="skin-preview" style="color:${col}">${sk.em[0]}</span>
       <div style="font-size:11px;color:rgba(200,212,232,0.3);margin-bottom:4px">bombe : ${sk.bombEm}</div>
       <div class="skin-name">${sk.name}</div>
-      <div class="skin-price ${sk.free||owned?'free':''}">${owned?'ACQUIS':sk.free?'GRATUIT':'💎 '+sk.cost}</div>
+      <div class="skin-price ${sk.free||owned?'free':''}">${owned?(isActive?'ACTIF':'ACQUIS'):sk.free?'GRATUIT':'💎 '+sk.cost}</div>
     </div>`;
   }).join('')}</div>`;
   c.appendChild(sec);
 
-  // preview row of active skin
   const sk=getActiveSkinData();
   const prev=document.createElement('div');
   prev.style.cssText='text-align:center;margin-top:16px;padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;';
@@ -884,8 +873,11 @@ function renderSkins(c){
 function handleSkinClick(id){
   const sk=SKINS.find(s=>s.id===id);if(!sk)return;
   const owned=sk.free||getOwned('skin_'+id);
-  if(owned){setActiveSkin(id);buildShop();showToast(`✦ Skin "${sk.name}" activé !`);}
-  else{
+  if(owned){
+    setActiveSkin(id);
+    buildShop();
+    showToast(`✦ Skin "${sk.name}" activé !`);
+  } else {
     if(getGems()<sk.cost){showToast('Pas assez de gemmes ! 💎');return;}
     showModal(`<div class="modal-title">✦ ${sk.name}</div><div class="modal-desc">${sk.desc}<br><br>Coût : <strong style="color:var(--cyan)">${sk.cost} 💎</strong></div><div class="modal-btns"><button class="btn-gold" onclick="confirmBuySkin('${id}')">ACHETER & ACTIVER</button><button class="btn-ghost" onclick="hideModal()">ANNULER</button></div>`);
   }
@@ -914,7 +906,6 @@ function renderBoosts(c){
   }</div>`;
   c.appendChild(sec);
 
-  // rewarded ad
   const adSec=document.createElement('div');adSec.className='shop-section';
   adSec.innerHTML=`<div class="shop-section-title">📺 PUBLICITÉ RÉCOMPENSÉE</div>
   <div class="shop-item" onclick="watchAdGems()" style="grid-column:span 2;display:flex;align-items:center;gap:14px;text-align:left;">
@@ -966,7 +957,7 @@ function adContinueConfirm(){hideModal();const d=getSave();d.lives=Math.min(MAX_
 let tempBonus={noBombs:false,extraTime:false,doubleGems:false};
 
 // ══════════════════════════════════════════
-// ❤️ NO LIVES MODAL
+// ❤️ NO LIVES
 // ══════════════════════════════════════════
 function showNoLivesModal(){
   const{lives,lastRegen}=getLivesData();
