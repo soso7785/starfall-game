@@ -19,436 +19,230 @@
   --cyan:      #60d4f0;
   --glow-g:    rgba(232,200,112,0.35);
   --glow-l:    rgba(167,139,202,0.35);
+  /* Theme vars (overridden by active theme) */
+  --th-bg1:    #04030a;
+  --th-bg2:    #07061a;
+  --th-acc1:   #a78bca;
+  --th-acc2:   #e8c870;
+  --th-star1:  #c8a8f0;
+  --th-star2:  #90e8ff;
+  --th-star3:  #f5dfa0;
   --font-title: 'Cinzel', serif;
   --font-body:  'Crimson Pro', serif;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
-
-html,body{
-  width:100%;height:100%;overflow:hidden;
-  background:var(--ink);
-  font-family:var(--font-body);
-  color:var(--silver);
+/* ── THEMES ── */
+body.theme-abyss {
+  --th-bg1:#00101a; --th-bg2:#001c2e; --th-acc1:#60d4f0; --th-acc2:#0af0c0;
+  --th-star1:#90e8ff; --th-star2:#0af0c0; --th-star3:#60d4f0;
+}
+body.theme-inferno {
+  --th-bg1:#1a0500; --th-bg2:#2e0f00; --th-acc1:#e8c870; --th-acc2:#ff7040;
+  --th-star1:#f5dfa0; --th-star2:#ff9060; --th-star3:#e8c870;
+}
+body.theme-midnight {
+  --th-bg1:#000005; --th-bg2:#05050f; --th-acc1:#4060ff; --th-acc2:#8080ff;
+  --th-star1:#a0b0ff; --th-star2:#8080ff; --th-star3:#6070e0;
+}
+body.theme-aurora {
+  --th-bg1:#060010; --th-bg2:#100520; --th-acc1:#ff60a0; --th-acc2:#a060ff;
+  --th-star1:#ff90c0; --th-star2:#c080ff; --th-star3:#60ffb0;
 }
 
-/* ── CANVAS BG ── */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--th-bg1,var(--ink));font-family:var(--font-body);color:var(--silver);transition:background .6s;}
+
 #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-/* ── SCREENS ── */
-.screen{
-  position:fixed;inset:0;z-index:10;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:1;transition:opacity .5s;
-}
+.screen{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:1;transition:opacity .5s;}
 .screen.hidden{opacity:0;pointer-events:none;}
 
-/* ════════════════ HOME ════════════════ */
-#home{
-  background:radial-gradient(ellipse 70% 50% at 50% 35%,rgba(167,139,202,0.08),transparent),
-             radial-gradient(ellipse 40% 40% at 80% 80%,rgba(232,200,112,0.05),transparent);
-}
-
+/* ════ HOME ════ */
+#home{background:radial-gradient(ellipse 70% 50% at 50% 35%,rgba(167,139,202,0.08),transparent),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(232,200,112,0.05),transparent);}
 .home-inner{text-align:center;padding:0 24px;}
-
 .logo-wrap{margin-bottom:40px;position:relative;}
-.logo-star-ring{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:280px;height:280px;
-  border-radius:50%;
-  background:radial-gradient(ellipse at center,rgba(167,139,202,0.12) 0%,transparent 70%);
-  animation:pulse 4s ease-in-out infinite;
-  pointer-events:none;
-}
+.logo-star-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(167,139,202,0.12) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite;pointer-events:none;}
 @keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
-
-.logo-title{
-  font-family:var(--font-title);
-  font-size:clamp(56px,15vw,96px);
-  font-weight:900;
-  letter-spacing:.18em;
-  line-height:1;
-  background:linear-gradient(160deg,#f5dfa0 0%,#e8c870 40%,#c8a8f0 70%,#a78bca 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 40px rgba(232,200,112,0.3));
-  animation:titleFloat 6s ease-in-out infinite;
-}
+.logo-title{font-family:var(--font-title);font-size:clamp(56px,15vw,96px);font-weight:900;letter-spacing:.18em;line-height:1;background:linear-gradient(160deg,#f5dfa0 0%,#e8c870 40%,#c8a8f0 70%,#a78bca 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 40px rgba(232,200,112,0.3));animation:titleFloat 6s ease-in-out infinite;}
 @keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-
-.logo-sub{
-  font-family:var(--font-body);font-style:italic;font-weight:300;
-  font-size:clamp(13px,3vw,17px);letter-spacing:.45em;
-  color:rgba(200,212,232,0.45);margin-top:10px;
-}
-
-.home-divider{
-  width:120px;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(232,200,112,0.4),transparent);
-  margin:28px auto;
-}
-
+.logo-sub{font-family:var(--font-body);font-style:italic;font-weight:300;font-size:clamp(13px,3vw,17px);letter-spacing:.45em;color:rgba(200,212,232,0.45);margin-top:10px;}
+.home-divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(232,200,112,0.4),transparent);margin:28px auto;}
 .home-stats{display:flex;gap:32px;justify-content:center;margin-bottom:36px;}
-.hstat-val{
-  font-family:var(--font-title);font-size:28px;font-weight:700;
-  color:var(--gold);
-  filter:drop-shadow(0 0 12px rgba(232,200,112,0.5));
-}
-.hstat-lbl{
-  font-size:10px;letter-spacing:.35em;text-transform:uppercase;
-  color:rgba(200,212,232,0.3);margin-top:4px;
-}
-
-.btn-play{
-  font-family:var(--font-title);font-weight:700;
-  font-size:clamp(13px,3vw,16px);letter-spacing:.35em;
-  color:var(--ink);
-  background:linear-gradient(135deg,var(--gold2),var(--gold));
-  border:none;padding:20px 60px;border-radius:4px;cursor:pointer;
-  box-shadow:0 0 40px rgba(232,200,112,0.25),0 4px 30px rgba(0,0,0,0.4);
-  transition:transform .15s,box-shadow .2s;
-  margin-bottom:14px;
-  position:relative;overflow:hidden;
-}
-.btn-play::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,0.2),transparent);
-}
+.hstat-val{font-family:var(--font-title);font-size:28px;font-weight:700;color:var(--gold);filter:drop-shadow(0 0 12px rgba(232,200,112,0.5));}
+.hstat-lbl{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:rgba(200,212,232,0.3);margin-top:4px;}
+.btn-play{font-family:var(--font-title);font-weight:700;font-size:clamp(13px,3vw,16px);letter-spacing:.35em;color:var(--ink);background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;padding:20px 60px;border-radius:4px;cursor:pointer;box-shadow:0 0 40px rgba(232,200,112,0.25),0 4px 30px rgba(0,0,0,0.4);transition:transform .15s,box-shadow .2s;margin-bottom:14px;position:relative;overflow:hidden;}
+.btn-play::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.2),transparent);}
 .btn-play:active{transform:scale(.96);}
-
-.btn-secondary{
-  font-family:var(--font-title);font-size:11px;letter-spacing:.3em;
-  color:rgba(200,212,232,0.4);background:transparent;
-  border:1px solid rgba(200,212,232,0.12);
-  padding:13px 32px;border-radius:4px;cursor:pointer;
-  transition:all .2s;margin:5px;
-}
+.btn-secondary{font-family:var(--font-title);font-size:11px;letter-spacing:.3em;color:rgba(200,212,232,0.4);background:transparent;border:1px solid rgba(200,212,232,0.12);padding:13px 32px;border-radius:4px;cursor:pointer;transition:all .2s;margin:5px;}
 .btn-secondary:hover{color:rgba(200,212,232,0.8);border-color:rgba(200,212,232,0.3);}
-
 .btn-row-home{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 
-/* ════════════════ SETTINGS ════════════════ */
-#settings{
-  background:rgba(4,3,10,0.95);
-  backdrop-filter:blur(20px);
-}
-.settings-box{
-  background:rgba(18,15,46,0.9);
-  border:1px solid rgba(232,200,112,0.15);
-  border-radius:8px;padding:40px 36px;
-  width:min(340px,90vw);text-align:center;
-}
-.settings-title{
-  font-family:var(--font-title);font-size:20px;letter-spacing:.3em;
-  color:var(--gold);margin-bottom:28px;
-}
-.setting-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05);
-}
+/* ════ SETTINGS ════ */
+#settings{background:rgba(4,3,10,0.95);backdrop-filter:blur(20px);}
+.settings-box{background:rgba(18,15,46,0.9);border:1px solid rgba(232,200,112,0.15);border-radius:8px;padding:40px 36px;width:min(340px,90vw);text-align:center;}
+.settings-title{font-family:var(--font-title);font-size:20px;letter-spacing:.3em;color:var(--gold);margin-bottom:28px;}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
 .setting-row:last-of-type{border-bottom:none;}
 .setting-label{font-size:14px;font-weight:300;letter-spacing:.1em;color:var(--silver);}
-
-/* Toggle */
 .toggle{position:relative;width:52px;height:28px;cursor:pointer;}
 .toggle input{opacity:0;width:0;height:0;}
-.toggle-slider{
-  position:absolute;inset:0;border-radius:28px;
-  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
-  transition:.3s;
-}
-.toggle-slider::before{
-  content:'';position:absolute;top:3px;left:3px;
-  width:20px;height:20px;border-radius:50%;
-  background:rgba(200,212,232,0.4);transition:.3s;
-}
+.toggle-slider{position:absolute;inset:0;border-radius:28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);transition:.3s;}
+.toggle-slider::before{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:rgba(200,212,232,0.4);transition:.3s;}
 .toggle input:checked + .toggle-slider{background:rgba(232,200,112,0.25);border-color:rgba(232,200,112,0.5);}
 .toggle input:checked + .toggle-slider::before{background:var(--gold);transform:translateX(24px);box-shadow:0 0 12px rgba(232,200,112,0.6);}
+.vol-slider{-webkit-appearance:none;width:130px;height:3px;background:rgba(255,255,255,0.1);border-radius:3px;outline:none;cursor:pointer;}
+.vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(232,200,112,0.5);cursor:pointer;}
 
-/* Slider */
-.vol-slider{
-  -webkit-appearance:none;width:130px;height:3px;
-  background:rgba(255,255,255,0.1);border-radius:3px;outline:none;cursor:pointer;
-}
-.vol-slider::-webkit-slider-thumb{
-  -webkit-appearance:none;width:16px;height:16px;border-radius:50%;
-  background:var(--gold);box-shadow:0 0 8px rgba(232,200,112,0.5);cursor:pointer;
-}
-
-/* ════════════════ LEVEL SELECT ════════════════ */
-#levels{
-  background:radial-gradient(ellipse 60% 40% at 50% 20%,rgba(167,139,202,0.07),transparent);
-  padding:20px;overflow-y:auto;
-}
-.levels-header{
-  font-family:var(--font-title);font-size:clamp(18px,5vw,26px);letter-spacing:.25em;
-  color:var(--gold);text-align:center;margin-bottom:4px;margin-top:50px;
-}
+/* ════ LEVELS ════ */
+#levels{background:radial-gradient(ellipse 60% 40% at 50% 20%,rgba(167,139,202,0.07),transparent);padding:20px;overflow-y:auto;}
+.levels-header{font-family:var(--font-title);font-size:clamp(18px,5vw,26px);letter-spacing:.25em;color:var(--gold);text-align:center;margin-bottom:4px;margin-top:50px;}
 .levels-sub{font-size:11px;letter-spacing:.4em;color:rgba(200,212,232,0.25);text-align:center;margin-bottom:32px;}
-
 .worlds-wrap{width:min(400px,94vw);}
-.world-label{
-  font-family:var(--font-title);font-size:10px;letter-spacing:.5em;
-  color:rgba(200,212,232,0.25);margin-bottom:12px;margin-top:24px;
-  padding-left:4px;
-}
-
+.world-label{font-family:var(--font-title);font-size:10px;letter-spacing:.5em;color:rgba(200,212,232,0.25);margin-bottom:12px;margin-top:24px;padding-left:4px;}
 .levels-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:4px;}
-
-.lvl-btn{
-  aspect-ratio:1;border-radius:8px;border:none;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-family:var(--font-title);font-weight:700;
-  font-size:clamp(14px,3.5vw,18px);
-  transition:transform .15s;position:relative;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.07);
-  color:rgba(200,212,232,0.7);
-}
+.lvl-btn{aspect-ratio:1;border-radius:8px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-title);font-weight:700;font-size:clamp(14px,3.5vw,18px);transition:transform .15s;position:relative;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);color:rgba(200,212,232,0.7);}
 .lvl-btn.done{background:rgba(232,200,112,0.07);border-color:rgba(232,200,112,0.25);color:var(--gold);}
 .lvl-btn.locked{cursor:not-allowed;color:rgba(200,212,232,0.15);border-color:rgba(255,255,255,0.03);}
 .lvl-btn:not(.locked):active{transform:scale(.9);}
 .lvl-stars{font-size:8px;margin-top:3px;letter-spacing:1px;}
 
-/* ════════════════ GAME ════════════════ */
+/* ════ GAME ════ */
 #game{background:transparent;}
 #gc{position:absolute;inset:0;z-index:1;touch-action:none;}
-
-.hud{
-  position:absolute;top:0;left:0;right:0;z-index:20;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  padding:52px 22px 0;pointer-events:none;
-}
-.hud-score{
-  font-family:var(--font-title);font-weight:700;
-  font-size:clamp(32px,8vw,52px);color:#fff;line-height:1;
-  filter:drop-shadow(0 0 20px rgba(232,200,112,0.4));
-}
+.hud{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:flex-start;padding:52px 22px 0;pointer-events:none;}
+.hud-score{font-family:var(--font-title);font-weight:700;font-size:clamp(32px,8vw,52px);color:#fff;line-height:1;filter:drop-shadow(0 0 20px rgba(232,200,112,0.4));}
 .hud-info{font-size:10px;letter-spacing:.3em;color:rgba(232,200,112,0.5);margin-top:5px;}
-
 .lives-row{display:flex;gap:6px;justify-content:flex-end;}
 .life{font-size:16px;transition:all .3s;}
 .life.lost{opacity:.1;filter:grayscale(1);}
-
-/* timer ring */
-.timer-wrap{
-  position:absolute;top:44px;left:50%;transform:translateX(-50%);
-  z-index:20;pointer-events:none;
-}
+.timer-wrap{position:absolute;top:44px;left:50%;transform:translateX(-50%);z-index:20;pointer-events:none;}
 .timer-ring{width:56px;height:56px;transform:rotate(-90deg);}
 .timer-track{fill:none;stroke:rgba(255,255,255,0.06);stroke-width:3;}
-.timer-fill{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;
-  stroke-dasharray:157;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke .5s;}
-.timer-num{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-family:var(--font-title);font-size:15px;color:var(--gold);pointer-events:none;
-}
-
-/* objective */
-.obj-wrap{
-  position:absolute;bottom:80px;left:22px;right:22px;z-index:20;pointer-events:none;
-}
+.timer-fill{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-dasharray:157;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke .5s;}
+.timer-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-title);font-size:15px;color:var(--gold);pointer-events:none;}
+.obj-wrap{position:absolute;bottom:80px;left:22px;right:22px;z-index:20;pointer-events:none;}
 .obj-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
 .obj-txt{font-size:9px;letter-spacing:.4em;color:rgba(200,212,232,0.3);}
 .obj-count{font-family:var(--font-title);font-size:12px;color:var(--gold);}
 .obj-track{height:3px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;}
-.obj-fill{height:100%;border-radius:3px;transition:width .4s;
-  background:linear-gradient(90deg,var(--lilac),var(--gold));}
-
-/* combo */
-.combo-display{
-  position:absolute;bottom:110px;left:50%;transform:translateX(-50%);
-  z-index:20;pointer-events:none;text-align:center;
-}
-.combo-mult{
-  font-family:var(--font-title);font-weight:900;
-  font-size:clamp(40px,10vw,64px);
-  color:var(--gold2);
-  filter:drop-shadow(0 0 20px rgba(232,200,112,0.6));
-  opacity:0;transform:scale(.6) translateY(10px);
-  transition:all .3s cubic-bezier(.34,1.56,.64,1);
-}
+.obj-fill{height:100%;border-radius:3px;transition:width .4s;background:linear-gradient(90deg,var(--lilac),var(--gold));}
+.combo-display{position:absolute;bottom:110px;left:50%;transform:translateX(-50%);z-index:20;pointer-events:none;text-align:center;}
+.combo-mult{font-family:var(--font-title);font-weight:900;font-size:clamp(40px,10vw,64px);color:var(--gold2);filter:drop-shadow(0 0 20px rgba(232,200,112,0.6));opacity:0;transform:scale(.6) translateY(10px);transition:all .3s cubic-bezier(.34,1.56,.64,1);}
 .combo-mult.show{opacity:1;transform:scale(1) translateY(0);}
-.combo-lbl{
-  font-size:9px;letter-spacing:.5em;color:rgba(232,200,112,0.6);
-  opacity:0;transition:opacity .3s;
-}
+.combo-lbl{font-size:9px;letter-spacing:.5em;color:rgba(232,200,112,0.6);opacity:0;transition:opacity .3s;}
 .combo-lbl.show{opacity:1;}
+.pause-btn{position:absolute;top:50px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:30px;padding:6px 20px;font-family:var(--font-title);font-size:8px;letter-spacing:.3em;color:rgba(200,212,232,0.2);cursor:pointer;}
 
-/* pause btn */
-.pause-btn{
-  position:absolute;top:50px;left:50%;transform:translateX(-50%);
-  z-index:20;background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:30px;padding:6px 20px;
-  font-family:var(--font-title);font-size:8px;letter-spacing:.3em;
-  color:rgba(200,212,232,0.2);cursor:pointer;
-}
-
-/* ════════════════ LEVEL COMPLETE ════════════════ */
-#levelcomplete{
-  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(232,200,112,0.06),transparent);
-}
+/* ════ LEVEL COMPLETE ════ */
+#levelcomplete{background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(232,200,112,0.06),transparent);}
 .lc-inner{text-align:center;padding:0 24px;}
-.lc-title{
-  font-family:var(--font-title);font-weight:900;
-  font-size:clamp(28px,8vw,50px);letter-spacing:.2em;
-  color:var(--gold);
-  filter:drop-shadow(0 0 30px rgba(232,200,112,0.4));
-  margin-bottom:4px;
-}
+.lc-title{font-family:var(--font-title);font-weight:900;font-size:clamp(28px,8vw,50px);letter-spacing:.2em;color:var(--gold);filter:drop-shadow(0 0 30px rgba(232,200,112,0.4));margin-bottom:4px;}
 .lc-sub{font-size:11px;letter-spacing:.4em;color:rgba(200,212,232,0.3);margin-bottom:28px;}
-
 .stars-row{display:flex;gap:14px;justify-content:center;margin-bottom:30px;}
 .star-big{font-size:44px;opacity:.15;filter:grayscale(1);transition:all .5s;}
 .star-big.lit{opacity:1;filter:none;animation:starPop .5s cubic-bezier(.34,1.56,.64,1);}
 @keyframes starPop{0%{transform:scale(0)}100%{transform:scale(1)}}
-
 .lc-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(280px,85vw);margin:0 auto 28px;}
-.lc-card{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
-  border-radius:8px;padding:16px 10px;text-align:center;
-}
+.lc-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:16px 10px;text-align:center;}
 .lc-val{font-family:var(--font-title);font-weight:700;font-size:24px;color:#fff;}
 .lc-lbl{font-size:9px;letter-spacing:.3em;color:rgba(200,212,232,0.3);margin-top:4px;}
 
-/* ════════════════ GAME OVER ════════════════ */
-#gameover{
-  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(224,112,144,0.06),transparent);
-}
-.go-title{
-  font-family:var(--font-title);font-weight:900;
-  font-size:clamp(32px,9vw,58px);letter-spacing:.2em;
-  color:var(--rose);
-  filter:drop-shadow(0 0 30px rgba(224,112,144,0.4));
-  margin-bottom:4px;
-}
+/* ════ GAME OVER ════ */
+#gameover{background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(224,112,144,0.06),transparent);}
+.go-title{font-family:var(--font-title);font-weight:900;font-size:clamp(32px,9vw,58px);letter-spacing:.2em;color:var(--rose);filter:drop-shadow(0 0 30px rgba(224,112,144,0.4));margin-bottom:4px;}
 .go-sub{font-size:11px;letter-spacing:.4em;color:rgba(200,212,232,0.3);margin-bottom:28px;}
 .go-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(280px,85vw);margin:0 auto 28px;}
 .go-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:16px 10px;text-align:center;}
 .go-val{font-family:var(--font-title);font-weight:700;font-size:24px;color:#fff;}
 .go-lbl{font-size:9px;letter-spacing:.3em;color:rgba(200,212,232,0.3);margin-top:4px;}
 
-/* ════════════════ SHOP ════════════════ */
-#shop{
-  background:rgba(4,3,10,0.97);
-  padding:20px;overflow-y:auto;
-}
-.shop-header{
-  font-family:var(--font-title);font-size:clamp(18px,5vw,26px);letter-spacing:.25em;
-  color:var(--gold);text-align:center;margin-top:50px;margin-bottom:4px;
-}
+/* ════ SHOP (rebuilt) ════ */
+#shop{background:rgba(4,3,10,0.97);padding:20px;overflow-y:auto;}
+.shop-header{font-family:var(--font-title);font-size:clamp(18px,5vw,26px);letter-spacing:.25em;color:var(--gold);text-align:center;margin-top:50px;margin-bottom:4px;}
 .shop-sub{font-size:11px;letter-spacing:.4em;color:rgba(200,212,232,0.25);text-align:center;margin-bottom:10px;}
+.gems-bar{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-title);font-size:16px;color:var(--cyan);margin-bottom:28px;}
+.shop-section{width:min(400px,94vw);margin:0 auto 28px;}
+.shop-section-title{font-size:9px;letter-spacing:.5em;color:rgba(200,212,232,0.25);margin-bottom:14px;text-transform:uppercase;}
 
-.gems-bar{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  font-family:var(--font-title);font-size:16px;color:var(--cyan);
-  margin-bottom:28px;
-}
+/* tab system */
+.shop-tabs{display:flex;gap:6px;justify-content:center;width:min(400px,94vw);margin:0 auto 24px;}
+.shop-tab{flex:1;font-family:var(--font-title);font-size:9px;letter-spacing:.25em;padding:10px 6px;border:1px solid rgba(255,255,255,0.08);border-radius:4px;background:rgba(255,255,255,0.02);color:rgba(200,212,232,0.3);cursor:pointer;transition:all .2s;}
+.shop-tab.active{background:rgba(232,200,112,0.1);border-color:rgba(232,200,112,0.3);color:var(--gold);}
 
-.shop-section{
-  width:min(380px,94vw);margin:0 auto 24px;
-}
-.shop-section-title{
-  font-size:9px;letter-spacing:.5em;color:rgba(200,212,232,0.25);
-  margin-bottom:12px;text-transform:uppercase;
-}
+/* theme cards */
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.theme-card{border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .25s;position:relative;}
+.theme-card.owned.active-theme{border-color:var(--gold);box-shadow:0 0 20px rgba(232,200,112,0.3);}
+.theme-card.owned:not(.active-theme){border-color:rgba(255,255,255,0.15);}
+.theme-card:not(.owned){border-color:rgba(255,255,255,0.06);cursor:pointer;}
+.theme-preview{height:90px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:22px;position:relative;overflow:hidden;}
+.theme-preview::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5));}
+.theme-info{padding:10px 12px;background:rgba(0,0,0,0.4);}
+.theme-name{font-family:var(--font-title);font-size:11px;letter-spacing:.2em;color:#fff;margin-bottom:4px;}
+.theme-price-tag{font-size:10px;display:flex;align-items:center;gap:4px;}
+.theme-badge{position:absolute;top:8px;right:8px;z-index:2;font-size:8px;letter-spacing:.2em;font-family:var(--font-title);padding:3px 8px;border-radius:20px;}
+.theme-badge.active{background:rgba(232,200,112,0.9);color:#000;}
+.theme-badge.owned{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);}
+.theme-badge.locked{background:rgba(0,0,0,0.5);color:rgba(255,255,255,0.3);}
+
+/* skin cards */
+.skin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.skin-card{border-radius:10px;border:2px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);padding:14px 8px;text-align:center;cursor:pointer;transition:all .25s;position:relative;}
+.skin-card.owned.active-skin{border-color:var(--gold);background:rgba(232,200,112,0.08);box-shadow:0 0 15px rgba(232,200,112,0.2);}
+.skin-card.owned:not(.active-skin){border-color:rgba(255,255,255,0.15);}
+.skin-preview{font-size:34px;margin-bottom:8px;display:block;line-height:1;filter:drop-shadow(0 0 8px currentColor);}
+.skin-name{font-family:var(--font-title);font-size:10px;color:rgba(200,212,232,0.7);margin-bottom:6px;letter-spacing:.15em;}
+.skin-price{font-family:var(--font-title);font-size:11px;color:var(--cyan);}
+.skin-price.free{color:var(--gold);}
+.skin-badge{position:absolute;top:6px;right:6px;font-size:7px;font-family:var(--font-title);letter-spacing:.15em;padding:2px 6px;border-radius:10px;}
+.skin-badge.active{background:rgba(232,200,112,0.9);color:#000;}
+.skin-badge.owned-badge{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
+
+/* shop items grid */
 .shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.shop-item{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-  border-radius:8px;padding:18px 12px;text-align:center;cursor:pointer;
-  transition:all .2s;
-}
+.shop-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .2s;}
 .shop-item:hover{border-color:rgba(232,200,112,0.3);background:rgba(232,200,112,0.05);}
 .shop-item.owned{border-color:rgba(232,200,112,0.4);background:rgba(232,200,112,0.07);cursor:default;}
 .shop-emoji{font-size:32px;margin-bottom:8px;}
 .shop-name{font-family:var(--font-title);font-size:12px;color:var(--silver);margin-bottom:6px;}
 .shop-desc{font-size:10px;color:rgba(200,212,232,0.3);margin-bottom:10px;line-height:1.4;}
-.shop-price{
-  font-family:var(--font-title);font-size:13px;color:var(--cyan);
-  display:flex;align-items:center;justify-content:center;gap:4px;
-}
-.shop-price.free{color:var(--gold);}
-
+.shop-price{font-family:var(--font-title);font-size:13px;color:var(--cyan);display:flex;align-items:center;justify-content:center;gap:4px;}
 .gem-packs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.gem-pack{
-  background:rgba(96,212,240,0.06);border:1px solid rgba(96,212,240,0.15);
-  border-radius:8px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;
-}
+.gem-pack{background:rgba(96,212,240,0.06);border:1px solid rgba(96,212,240,0.15);border-radius:8px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;}
 .gem-pack:hover{border-color:rgba(96,212,240,0.4);background:rgba(96,212,240,0.1);}
 .gem-pack-val{font-family:var(--font-title);font-size:20px;color:var(--cyan);}
 .gem-pack-label{font-size:9px;color:rgba(200,212,232,0.3);margin:4px 0;}
 .gem-pack-price{font-family:var(--font-title);font-size:13px;color:var(--gold);}
 
-/* ── SHARED BTNS ── */
-.btn-gold{
-  font-family:var(--font-title);font-weight:700;
-  font-size:12px;letter-spacing:.3em;
-  color:var(--ink);background:linear-gradient(135deg,var(--gold2),var(--gold));
-  border:none;padding:16px 32px;border-radius:4px;cursor:pointer;
-  box-shadow:0 0 25px rgba(232,200,112,0.2);transition:transform .15s;
-}
-.btn-ghost{
-  font-family:var(--font-title);font-size:11px;letter-spacing:.3em;
-  color:rgba(200,212,232,0.4);background:transparent;
-  border:1px solid rgba(200,212,232,0.12);padding:14px 28px;border-radius:4px;cursor:pointer;transition:all .2s;
-}
+/* ── SHARED ── */
+.btn-gold{font-family:var(--font-title);font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--ink);background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;padding:16px 32px;border-radius:4px;cursor:pointer;box-shadow:0 0 25px rgba(232,200,112,0.2);transition:transform .15s;}
+.btn-ghost{font-family:var(--font-title);font-size:11px;letter-spacing:.3em;color:rgba(200,212,232,0.4);background:transparent;border:1px solid rgba(200,212,232,0.12);padding:14px 28px;border-radius:4px;cursor:pointer;transition:all .2s;}
 .btn-ghost:hover{color:rgba(200,212,232,0.8);border-color:rgba(200,212,232,0.3);}
 .btn-gold:active,.btn-ghost:active{transform:scale(.95);}
 
 /* ── EFFECTS ── */
-.tap-ring{
-  position:fixed;z-index:100;
-  width:48px;height:48px;border-radius:50%;
-  border:1.5px solid var(--gold);
-  transform:translate(-50%,-50%) scale(0);
-  animation:tapAnim .5s ease-out forwards;pointer-events:none;
-}
+.tap-ring{position:fixed;z-index:100;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--gold);transform:translate(-50%,-50%) scale(0);animation:tapAnim .5s ease-out forwards;pointer-events:none;}
 @keyframes tapAnim{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
-
-.float-pt{
-  position:fixed;z-index:100;
-  font-family:var(--font-title);font-size:16px;
-  pointer-events:none;animation:floatUp .9s ease-out forwards;
-}
+.float-pt{position:fixed;z-index:100;font-family:var(--font-title);font-size:16px;pointer-events:none;animation:floatUp .9s ease-out forwards;}
 @keyframes floatUp{0%{transform:translate(-50%,-50%);opacity:1}100%{transform:translate(-50%,-130%);opacity:0}}
-
 #flash{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:0;}
-
-/* ── TOAST ── */
-.toast{
-  position:fixed;bottom:120px;left:50%;transform:translateX(-50%);
-  z-index:300;font-family:var(--font-title);font-size:11px;letter-spacing:.2em;
-  background:rgba(18,15,46,0.95);border:1px solid rgba(232,200,112,0.3);
-  color:var(--gold);padding:10px 22px;border-radius:4px;
-  opacity:0;transition:opacity .3s;pointer-events:none;
-}
+.toast{position:fixed;bottom:120px;left:50%;transform:translateX(-50%);z-index:300;font-family:var(--font-title);font-size:11px;letter-spacing:.2em;background:rgba(18,15,46,0.95);border:1px solid rgba(232,200,112,0.3);color:var(--gold);padding:10px 22px;border-radius:4px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
-
-/* ── NO MONEY MODAL ── */
-.modal-overlay{
-  position:fixed;inset:0;z-index:400;
-  background:rgba(4,3,10,0.85);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
+.modal-overlay{position:fixed;inset:0;z-index:400;background:rgba(4,3,10,0.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
 .modal-overlay.show{opacity:1;pointer-events:all;}
-.modal-box{
-  background:rgba(18,15,46,0.98);border:1px solid rgba(232,200,112,0.2);
-  border-radius:8px;padding:36px 28px;width:min(320px,90vw);text-align:center;
-}
+.modal-box{background:rgba(18,15,46,0.98);border:1px solid rgba(232,200,112,0.2);border-radius:8px;padding:36px 28px;width:min(320px,90vw);text-align:center;}
 .modal-title{font-family:var(--font-title);font-size:18px;color:var(--gold);margin-bottom:8px;}
 .modal-desc{font-size:13px;font-weight:300;color:rgba(200,212,232,0.5);margin-bottom:24px;line-height:1.6;}
 .modal-btns{display:flex;flex-direction:column;gap:10px;}
-
-/* ── LIVES EMPTY ── */
-.lives-empty{
-  text-align:center;padding:20px;
-}
+.lives-empty{text-align:center;padding:20px;}
 .lives-empty-icon{font-size:48px;margin-bottom:16px;}
 .lives-empty-title{font-family:var(--font-title);font-size:20px;color:var(--rose);margin-bottom:8px;}
 .lives-empty-desc{font-size:13px;font-weight:300;color:rgba(200,212,232,0.4);line-height:1.6;margin-bottom:20px;}
 
-/* scrollbar */
+/* ── BOMB WARNING PULSE ── */
+@keyframes bombPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.25)}}
+@keyframes fuseFlicker{0%,100%{opacity:1}50%{opacity:.4}}
+
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(232,200,112,0.2);border-radius:3px;}
@@ -460,7 +254,6 @@ html,body{
 <div id="flash"></div>
 <div class="toast" id="toast"></div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box" id="modal-content"></div>
 </div>
@@ -491,24 +284,11 @@ html,body{
 <div class="screen hidden" id="settings">
   <div class="settings-box">
     <div class="settings-title">RÉGLAGES</div>
-    <div class="setting-row">
-      <span class="setting-label">Musique de fond</span>
-      <label class="toggle"><input type="checkbox" id="tog-music" checked onchange="toggleMusic()"><span class="toggle-slider"></span></label>
-    </div>
-    <div class="setting-row">
-      <span class="setting-label">Sons du jeu</span>
-      <label class="toggle"><input type="checkbox" id="tog-sfx" checked onchange="toggleSfx()"><span class="toggle-slider"></span></label>
-    </div>
-    <div class="setting-row">
-      <span class="setting-label">Volume musique</span>
-      <input type="range" class="vol-slider" id="vol-music" min="0" max="100" value="40" oninput="setMusicVol(this.value)">
-    </div>
-    <div class="setting-row">
-      <span class="setting-label">Volume sons</span>
-      <input type="range" class="vol-slider" id="vol-sfx" min="0" max="100" value="70" oninput="setSfxVol(this.value)">
-    </div>
-    <br>
-    <button class="btn-gold" onclick="showScreen('home');updateHome()">RETOUR</button>
+    <div class="setting-row"><span class="setting-label">Musique de fond</span><label class="toggle"><input type="checkbox" id="tog-music" checked onchange="toggleMusic()"><span class="toggle-slider"></span></label></div>
+    <div class="setting-row"><span class="setting-label">Sons du jeu</span><label class="toggle"><input type="checkbox" id="tog-sfx" checked onchange="toggleSfx()"><span class="toggle-slider"></span></label></div>
+    <div class="setting-row"><span class="setting-label">Volume musique</span><input type="range" class="vol-slider" id="vol-music" min="0" max="100" value="40" oninput="setMusicVol(this.value)"></div>
+    <div class="setting-row"><span class="setting-label">Volume sons</span><input type="range" class="vol-slider" id="vol-sfx" min="0" max="100" value="70" oninput="setSfxVol(this.value)"></div>
+    <br><button class="btn-gold" onclick="showScreen('home');updateHome()">RETOUR</button>
   </div>
 </div>
 
@@ -517,22 +297,15 @@ html,body{
   <div class="levels-header">GALAXIE</div>
   <div class="levels-sub">choisir un niveau</div>
   <div class="worlds-wrap" id="worlds-wrap"></div>
-  <br>
-  <button class="btn-ghost" onclick="showScreen('home');updateHome()">← RETOUR</button>
-  <br><br>
+  <br><button class="btn-ghost" onclick="showScreen('home');updateHome()">← RETOUR</button><br><br>
 </div>
 
 <!-- ══ GAME ══ -->
 <div class="screen hidden" id="game">
   <canvas id="gc"></canvas>
   <div class="hud">
-    <div>
-      <div class="hud-score" id="score-display">0</div>
-      <div class="hud-info" id="lvl-display">NIVEAU 1</div>
-    </div>
-    <div>
-      <div class="lives-row" id="lives-row"></div>
-    </div>
+    <div><div class="hud-score" id="score-display">0</div><div class="hud-info" id="lvl-display">NIVEAU 1</div></div>
+    <div><div class="lives-row" id="lives-row"></div></div>
   </div>
   <div class="timer-wrap">
     <svg class="timer-ring" viewBox="0 0 56 56">
@@ -546,10 +319,7 @@ html,body{
     <div class="combo-mult" id="combo-mult">×2</div>
   </div>
   <div class="obj-wrap">
-    <div class="obj-row">
-      <span class="obj-txt">OBJECTIF</span>
-      <span class="obj-count" id="obj-count">0 / 0</span>
-    </div>
+    <div class="obj-row"><span class="obj-txt">OBJECTIF</span><span class="obj-count" id="obj-count">0 / 0</span></div>
     <div class="obj-track"><div class="obj-fill" id="obj-fill" style="width:0%"></div></div>
   </div>
   <button class="pause-btn" onclick="goHome()">MENU</button>
@@ -598,8 +368,14 @@ html,body{
 <!-- ══ SHOP ══ -->
 <div class="screen hidden" id="shop">
   <div class="shop-header">BOUTIQUE</div>
-  <div class="shop-sub">améliore ton expérience</div>
+  <div class="shop-sub">personnalise ton aventure</div>
   <div class="gems-bar">💎 <span id="gem-count-shop">0</span> gemmes</div>
+  <div class="shop-tabs">
+    <div class="shop-tab active" onclick="switchShopTab('themes',this)">🎨 THÈMES</div>
+    <div class="shop-tab" onclick="switchShopTab('skins',this)">✦ SKINS</div>
+    <div class="shop-tab" onclick="switchShopTab('boosts',this)">⚡ BOOSTS</div>
+    <div class="shop-tab" onclick="switchShopTab('gems',this)">💎 GEMMES</div>
+  </div>
   <div id="shop-content" style="width:min(400px,94vw);margin:0 auto;padding-bottom:80px;"></div>
   <button class="btn-ghost" style="position:sticky;bottom:16px;left:50%;transform:translateX(-50%);display:block;margin:0 auto;" onclick="showScreen('home');updateHome()">← RETOUR</button>
 </div>
@@ -610,142 +386,84 @@ html,body{
 // ══════════════════════════════════════════
 // 💾 SAVE
 // ══════════════════════════════════════════
-function gs(){try{return JSON.parse(localStorage.getItem('sf3')||'{}')}catch{return{}}}
-function ss(d){localStorage.setItem('sf3',JSON.stringify(d))}
+function gs(){try{return JSON.parse(localStorage.getItem('sf4')||'{}')}catch{return{}}}
+function ss(d){localStorage.setItem('sf4',JSON.stringify(d))}
 function getSave(){return gs()}
 function putSave(d){ss(d)}
-
 function getGems(){return gs().gems||0}
 function addGems(n){const d=gs();d.gems=(d.gems||0)+n;ss(d);refreshGemUI();}
 function spendGems(n){const d=gs();if((d.gems||0)<n)return false;d.gems=(d.gems||0)-n;ss(d);refreshGemUI();return true;}
-function refreshGemUI(){
-  const g=getGems();
-  document.querySelectorAll('#gem-count-shop,#gem-count-hud').forEach(el=>{if(el)el.textContent=g;});
-}
-
+function refreshGemUI(){const g=getGems();document.querySelectorAll('#gem-count-shop,#gem-count-hud').forEach(el=>{if(el)el.textContent=g;});}
 function getLvlData(i){const d=gs();return d['l'+i]||{stars:0,unlocked:i===0};}
 function saveLvlData(i,o){const d=gs();d['l'+i]=o;ss(d);}
 function getTotalStars(){let s=0;for(let i=0;i<LEVELS.length;i++)s+=getLvlData(i).stars||0;return s;}
 function getUnlocked(){let c=0;for(let i=0;i<LEVELS.length;i++)if(getLvlData(i).unlocked)c++;return c;}
-function getBest(){return gs().best||0;}
 function getOwned(k){return gs()['own_'+k]||false;}
 function setOwned(k){const d=gs();d['own_'+k]=true;ss(d);}
+function getActiveTheme(){return gs().activeTheme||'nebula';}
+function setActiveTheme(id){const d=gs();d.activeTheme=id;ss(d);applyTheme(id);}
+function getActiveSkin(){return gs().activeSkin||'classic';}
+function setActiveSkin(id){const d=gs();d.activeSkin=id;ss(d);}
 
-// Lives system
-const MAX_LIVES=5, REGEN_MS=30*60*1000; // 30 min per life
+const MAX_LIVES=5,REGEN_MS=30*60*1000;
 function getLivesData(){
-  const d=gs();
-  const now=Date.now();
-  let lives=d.lives!=null?d.lives:MAX_LIVES;
-  let lastRegen=d.livesRegen||now;
-  // regen
-  if(lives<MAX_LIVES){
-    const elapsed=now-lastRegen;
-    const gained=Math.floor(elapsed/REGEN_MS);
-    if(gained>0){
-      lives=Math.min(MAX_LIVES,lives+gained);
-      lastRegen=lastRegen+gained*REGEN_MS;
-    }
-  }
+  const d=gs(),now=Date.now();
+  let lives=d.lives!=null?d.lives:MAX_LIVES,lastRegen=d.livesRegen||now;
+  if(lives<MAX_LIVES){const elapsed=now-lastRegen,gained=Math.floor(elapsed/REGEN_MS);if(gained>0){lives=Math.min(MAX_LIVES,lives+gained);lastRegen=lastRegen+gained*REGEN_MS;}}
   return{lives,lastRegen};
 }
 function saveLives(lives,lastRegen){const d=gs();d.lives=lives;d.livesRegen=lastRegen;ss(d);}
-function spendLife(){
-  const{lives,lastRegen}=getLivesData();
-  if(lives<=0)return false;
-  saveLives(lives-1, lives===MAX_LIVES?Date.now():lastRegen);
-  return true;
-}
+function spendLife(){const{lives,lastRegen}=getLivesData();if(lives<=0)return false;saveLives(lives-1,lives===MAX_LIVES?Date.now():lastRegen);return true;}
 function refillLives(){saveLives(MAX_LIVES,Date.now());}
 
 // ══════════════════════════════════════════
-// 🎵 AUDIO ENGINE
+// 🎨 THEMES
 // ══════════════════════════════════════════
-let audioCtx=null, musicGain=null, sfxGain=null;
-let musicOn=true, sfxOn=true, musicVol=0.4, sfxVol=0.7;
-let bgOscNodes=[], bgStarted=false;
+const THEMES=[
+  {id:'nebula',   name:'Nébuleuse', free:true,  cost:0,   class:'',              colors:['#a78bca','#c8a8f0','#e8c870'], desc:'Le thème originel, violet mystique'},
+  {id:'abyss',    name:'Abysses',   free:false, cost:60,  class:'theme-abyss',   colors:['#001c2e','#60d4f0','#0af0c0'], desc:'Profondeurs marines lumineuses'},
+  {id:'inferno',  name:'Inferno',   free:false, cost:80,  class:'theme-inferno', colors:['#2e0f00','#e8c870','#ff7040'], desc:'Chaleur volcanique ardente'},
+  {id:'midnight', name:'Minuit',    free:false, cost:50,  class:'theme-midnight',colors:['#000005','#4060ff','#8080ff'], desc:'Obscurité électrique absolue'},
+  {id:'aurora',   name:'Aurore',    free:false, cost:100, class:'theme-aurora',  colors:['#100520','#ff60a0','#a060ff'], desc:'Aurore boréale rose et violette'},
+];
 
-function getCtx(){
-  if(!audioCtx){
-    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    musicGain=audioCtx.createGain();musicGain.gain.value=musicVol;musicGain.connect(audioCtx.destination);
-    sfxGain=audioCtx.createGain();sfxGain.gain.value=sfxVol;sfxGain.connect(audioCtx.destination);
-  }
-  return audioCtx;
+function applyTheme(id){
+  const t=THEMES.find(x=>x.id===id)||THEMES[0];
+  document.body.className=document.body.className.replace(/theme-\S+/g,'').trim();
+  if(t.class)document.body.classList.add(t.class);
 }
 
+// ══════════════════════════════════════════
+// ✦ STAR SKINS
+// ══════════════════════════════════════════
+const SKINS=[
+  {id:'classic', name:'Classique', free:true,  cost:0,  em:['✦','✧','⬡','✶'], bombEm:'💀', desc:'Style original'},
+  {id:'crystal', name:'Cristal',   free:false, cost:40, em:['💎','🔷','🔹','💠'], bombEm:'🧨', desc:'Éclats de cristal'},
+  {id:'fire',    name:'Feu',       free:false, cost:60, em:['🔥','✦','⚡','🌟'], bombEm:'💣', desc:'Brûlant et explosif'},
+  {id:'ice',     name:'Glace',     free:false, cost:55, em:['❄️','🌨','✦','⛄'], bombEm:'☠️', desc:'Froid glacial'},
+  {id:'cosmos',  name:'Cosmos',    free:false, cost:70, em:['🌙','⭐','🌠','☀️'], bombEm:'🪐', desc:'Voyage dans l\'univers'},
+  {id:'neon',    name:'Néon',      free:false, cost:45, em:['◈','◉','◆','✦'],  bombEm:'⊗',  desc:'Géométrie lumineuse'},
+];
+
+function getActiveSkinData(){return SKINS.find(s=>s.id===getActiveSkin())||SKINS[0];}
+
+// ══════════════════════════════════════════
+// 🎵 AUDIO
+// ══════════════════════════════════════════
+let audioCtx=null,musicGain=null,sfxGain=null;
+let musicOn=true,sfxOn=true,musicVol=0.4,sfxVol=0.7;
+let bgOscNodes=[],bgStarted=false;
+function getCtx(){if(!audioCtx){audioCtx=new(window.AudioContext||window.webkitAudioContext)();musicGain=audioCtx.createGain();musicGain.gain.value=musicVol;musicGain.connect(audioCtx.destination);sfxGain=audioCtx.createGain();sfxGain.gain.value=sfxVol;sfxGain.connect(audioCtx.destination);}return audioCtx;}
 function startMusic(){
   if(!musicOn||bgStarted)return;
-  try{
-    const ctx=getCtx();bgStarted=true;
-    // Ambient evolving pad — 3 detuned oscillators + filter
-    const freqs=[110,138.6,165];
-    const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=600;
-    filt.connect(musicGain);
-    const lfo=ctx.createOscillator();const lfoG=ctx.createGain();
-    lfo.frequency.value=0.08;lfoG.gain.value=150;
-    lfo.connect(lfoG);lfoG.connect(filt.frequency);lfo.start();
-
-    freqs.forEach((f,i)=>{
-      const o=ctx.createOscillator();const g=ctx.createGain();
-      o.type=i===0?'sine':'triangle';
-      o.frequency.value=f;
-      o.detune.value=(i-1)*8;
-      g.gain.value=0;
-      o.connect(g);g.connect(filt);
-      o.start();
-      g.gain.linearRampToValueAtTime(0.06+i*0.01,ctx.currentTime+3);
-      bgOscNodes.push({o,g});
-
-      // slow vibrato
-      const vib=ctx.createOscillator();const vibG=ctx.createGain();
-      vib.frequency.value=0.15+i*0.04;vibG.gain.value=3;
-      vib.connect(vibG);vibG.connect(o.frequency);vib.start();
-    });
-
-    // subtle melodic arp
-    const arpNotes=[220,261.6,329.6,392,440,329.6,261.6,220];
-    let ni=0;
-    function arpStep(){
-      if(!bgStarted||!musicOn)return;
-      try{
-        const o=ctx.createOscillator();const g=ctx.createGain();
-        o.type='sine';o.frequency.value=arpNotes[ni%arpNotes.length];
-        g.gain.setValueAtTime(0,ctx.currentTime);
-        g.gain.linearRampToValueAtTime(0.025,ctx.currentTime+0.1);
-        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.5);
-        o.connect(g);g.connect(musicGain);o.start();o.stop(ctx.currentTime+1.5);
-        ni++;
-      }catch(e){}
-      setTimeout(arpStep,2000+Math.random()*1000);
-    }
-    setTimeout(arpStep,4000);
-  }catch(e){}
+  try{const ctx=getCtx();bgStarted=true;const freqs=[110,138.6,165];const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=600;filt.connect(musicGain);const lfo=ctx.createOscillator();const lfoG=ctx.createGain();lfo.frequency.value=0.08;lfoG.gain.value=150;lfo.connect(lfoG);lfoG.connect(filt.frequency);lfo.start();freqs.forEach((f,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();o.type=i===0?'sine':'triangle';o.frequency.value=f;o.detune.value=(i-1)*8;g.gain.value=0;o.connect(g);g.connect(filt);o.start();g.gain.linearRampToValueAtTime(0.06+i*0.01,ctx.currentTime+3);bgOscNodes.push({o,g});const vib=ctx.createOscillator();const vibG=ctx.createGain();vib.frequency.value=0.15+i*0.04;vibG.gain.value=3;vib.connect(vibG);vibG.connect(o.frequency);vib.start();});const arpNotes=[220,261.6,329.6,392,440,329.6,261.6,220];let ni=0;function arpStep(){if(!bgStarted||!musicOn)return;try{const o=ctx.createOscillator();const g=ctx.createGain();o.type='sine';o.frequency.value=arpNotes[ni%arpNotes.length];g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(0.025,ctx.currentTime+0.1);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.5);o.connect(g);g.connect(musicGain);o.start();o.stop(ctx.currentTime+1.5);ni++;}catch(e){}setTimeout(arpStep,2000+Math.random()*1000);}setTimeout(arpStep,4000);}catch(e){}
 }
-
-function stopMusic(){
-  bgOscNodes.forEach(({o,g})=>{try{g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+1);setTimeout(()=>o.stop(),1100);}catch(e){}});
-  bgOscNodes=[];bgStarted=false;
-}
-
-function toggleMusic(){
-  musicOn=document.getElementById('tog-music').checked;
-  if(musicOn)startMusic();else stopMusic();
-}
+function stopMusic(){bgOscNodes.forEach(({o,g})=>{try{g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+1);setTimeout(()=>o.stop(),1100);}catch(e){}});bgOscNodes=[];bgStarted=false;}
+function toggleMusic(){musicOn=document.getElementById('tog-music').checked;if(musicOn)startMusic();else stopMusic();}
 function toggleSfx(){sfxOn=document.getElementById('tog-sfx').checked;}
 function setMusicVol(v){musicVol=v/100;if(musicGain)musicGain.gain.value=musicVol;}
 function setSfxVol(v){sfxVol=v/100;if(sfxGain)sfxGain.gain.value=sfxVol;}
-
-function playTone(f,type,dur,vol=0.3){
-  if(!sfxOn)return;
-  try{
-    const ctx=getCtx();const o=ctx.createOscillator();const g=ctx.createGain();
-    o.connect(g);g.connect(sfxGain);o.type=type;o.frequency.value=f;
-    g.gain.setValueAtTime(vol,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
-    o.start();o.stop(ctx.currentTime+dur);
-  }catch(e){}
-}
+function playTone(f,type,dur,vol=0.3){if(!sfxOn)return;try{const ctx=getCtx();const o=ctx.createOscillator();const g=ctx.createGain();o.connect(g);g.connect(sfxGain);o.type=type;o.frequency.value=f;g.gain.setValueAtTime(vol,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
 const SFX={
   catch:()=>{playTone(523,'sine',.1,.2);setTimeout(()=>playTone(784,'sine',.12,.15),50);},
   gold:()=>{[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,'sine',.25,.18),i*60));},
@@ -759,90 +477,22 @@ const SFX={
 };
 
 // ══════════════════════════════════════════
-// 🌌 BACKGROUND CANVAS
+// 🌌 BG CANVAS
 // ══════════════════════════════════════════
 const bgC=document.getElementById('bg-canvas');const bgX=bgC.getContext('2d');
 let bgStars=[];
-function initBg(){
-  bgC.width=innerWidth;bgC.height=innerHeight;bgStars=[];
-  for(let i=0;i<280;i++){
-    const r=Math.random();
-    bgStars.push({
-      x:Math.random()*innerWidth,y:Math.random()*innerHeight,
-      r:.15+Math.random()*(r<.05?2.5:r<.2?1.2:.5),
-      a:Math.random()*Math.PI*2,sp:.003+Math.random()*.008,
-      hue:Math.random()<.3?Math.random()*60+220:0,
-      sat:Math.random()<.3?80:0,
-    });
-  }
-}
-function drawBg(){
-  bgX.clearRect(0,0,bgC.width,bgC.height);
-  bgStars.forEach(s=>{
-    s.a+=s.sp;
-    const al=.08+.55*Math.abs(Math.sin(s.a));
-    bgX.beginPath();bgX.arc(s.x,s.y,s.r,0,Math.PI*2);
-    bgX.fillStyle=s.hue?`hsla(${s.hue},${s.sat}%,85%,${al})`:`rgba(220,230,255,${al})`;
-    bgX.fill();
-  });
-  requestAnimationFrame(drawBg);
-}
-initBg();drawBg();
-window.addEventListener('resize',initBg);
+function initBg(){bgC.width=innerWidth;bgC.height=innerHeight;bgStars=[];for(let i=0;i<280;i++){const r=Math.random();bgStars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:.15+Math.random()*(r<.05?2.5:r<.2?1.2:.5),a:Math.random()*Math.PI*2,sp:.003+Math.random()*.008,hue:Math.random()<.3?Math.random()*60+220:0,sat:Math.random()<.3?80:0});}}
+function drawBg(){bgX.clearRect(0,0,bgC.width,bgC.height);bgStars.forEach(s=>{s.a+=s.sp;const al=.08+.55*Math.abs(Math.sin(s.a));bgX.beginPath();bgX.arc(s.x,s.y,s.r,0,Math.PI*2);bgX.fillStyle=s.hue?`hsla(${s.hue},${s.sat}%,85%,${al})`:`rgba(220,230,255,${al})`;bgX.fill();});requestAnimationFrame(drawBg);}
+initBg();drawBg();window.addEventListener('resize',initBg);
 
 // ══════════════════════════════════════════
-// 📋 LEVEL DEFINITIONS (30 levels, 3 worlds)
+// 📋 LEVELS
 // ══════════════════════════════════════════
-// difficulty: speed, bombRate, goal, time
-// power: 'none' | 'shield' | 'slow'
 const LEVELS=[];
-const WORLDS=[
-  {name:'NÉBULEUSE', color:'#a78bca', accent:'#c8a8f0'},
-  {name:'ABYSSES',   color:'#60d4f0', accent:'#90e8ff'},
-  {name:'INFERNO',   color:'#e8c870', accent:'#f5dfa0'},
-];
-// World 1: 10 levels, gentle intro
-for(let i=0;i<10;i++){
-  const p=i/9;
-  LEVELS.push({
-    world:0,
-    name:`${i+1}`,
-    goal:8+i*2,
-    time:35-i,
-    lives:3,
-    speed:1.6+p*1.2,
-    bombRate:.06+p*.12,
-    power: i===4?'shield':i===8?'slow':'none',
-  });
-}
-// World 2: 10 levels, harder
-for(let i=0;i<10;i++){
-  const p=i/9;
-  LEVELS.push({
-    world:1,
-    name:`${i+11}`,
-    goal:25+i*3,
-    time:40-i,
-    lives:2,
-    speed:2.8+p*1.4,
-    bombRate:.20+p*.14,
-    power: i===3?'shield':i===7?'slow':'none',
-  });
-}
-// World 3: 10 levels, brutal
-for(let i=0;i<10;i++){
-  const p=i/9;
-  LEVELS.push({
-    world:2,
-    name:`${i+21}`,
-    goal:45+i*5,
-    time:45-i*2,
-    lives:1,
-    speed:4.2+p*2,
-    bombRate:.34+p*.12,
-    power: i===5?'shield':'none',
-  });
-}
+const WORLDS=[{name:'NÉBULEUSE',color:'#a78bca',accent:'#c8a8f0'},{name:'ABYSSES',color:'#60d4f0',accent:'#90e8ff'},{name:'INFERNO',color:'#e8c870',accent:'#f5dfa0'}];
+for(let i=0;i<10;i++){const p=i/9;LEVELS.push({world:0,name:`${i+1}`,goal:8+i*2,time:35-i,lives:3,speed:1.6+p*1.2,bombRate:.06+p*.12,power:i===4?'shield':i===8?'slow':'none'});}
+for(let i=0;i<10;i++){const p=i/9;LEVELS.push({world:1,name:`${i+11}`,goal:25+i*3,time:40-i,lives:2,speed:2.8+p*1.4,bombRate:.20+p*.14,power:i===3?'shield':i===7?'slow':'none'});}
+for(let i=0;i<10;i++){const p=i/9;LEVELS.push({world:2,name:`${i+21}`,goal:45+i*5,time:45-i*2,lives:1,speed:4.2+p*2,bombRate:.34+p*.12,power:i===5?'shield':'none'});}
 
 // ══════════════════════════════════════════
 // 🎮 GAME STATE
@@ -852,21 +502,24 @@ let objs=[],parts=[],trails=[];
 let running=false,timeLeft=0,startT=0;
 let spawnIv=null,tickIv=null,animFr=null;
 let shakeX=0,shakeY=0,shakeMag=0;
-let powerActive=false,powerType=null,powerTimer=null;
-// slow power: reduces fall speed
-let slowFactor=1;
+let powerActive=false,powerType=null,powerTimer=null,slowFactor=1;
 
-// star types: only 3 clean types + gold + bomb
-const TYPES=[
-  {t:'a',em:'✦',pts:10,col:'#c8a8f0',sz:36,w:35},
-  {t:'b',em:'✧',pts:20,col:'#90e8ff',sz:32,w:30},
-  {t:'c',em:'⬡',pts:15,col:'#f5dfa0',sz:34,w:25},
-  {t:'gold',em:'✶',pts:50,col:'#ffd700',sz:40,w:6,special:'gold'},
-  {t:'bomb',em:'◉',pts:-1,col:'#e07090',sz:36,w:0},
-];
+// Star types — em filled dynamically from active skin
+function getTypes(){
+  const sk=getActiveSkinData();
+  return[
+    {t:'a',em:sk.em[0],pts:10,col:'#c8a8f0',sz:36,w:35},
+    {t:'b',em:sk.em[1],pts:20,col:'#90e8ff',sz:32,w:30},
+    {t:'c',em:sk.em[2],pts:15,col:'#f5dfa0',sz:34,w:25},
+    {t:'gold',em:sk.em[3],pts:50,col:'#ffd700',sz:40,w:6,special:'gold'},
+    {t:'bomb',em:sk.bombEm,pts:-1,col:'#e07090',sz:38,w:0,special:'bomb'},
+  ];
+}
+
 function pickType(bomb){
+  const TYPES=getTypes();
   if(bomb)return TYPES[4];
-  const pool=TYPES.slice(0,4);const tw=pool.reduce((s,t)=>s+t.w,0);
+  const pool=TYPES.slice(0,4),tw=pool.reduce((s,t)=>s+t.w,0);
   let r=Math.random()*tw;for(const t of pool){r-=t.w;if(r<=0)return t;}return pool[0];
 }
 
@@ -878,19 +531,17 @@ window.addEventListener('resize',resizeGC);resizeGC();
 // 🚀 START
 // ══════════════════════════════════════════
 function startLevel(idx){
-  // spend a life
-  if(!spendLife()){
-    showNoLivesModal();return;
-  }
-  getCtx();startMusic();
-
+  if(!spendLife()){showNoLivesModal();return;}
+  getCtx();startMusic();applyTheme(getActiveTheme());
   curLvl=idx;score=0;combo=0;maxCombo=0;caught=0;
   objs=[];parts=[];trails=[];running=true;
   const lv=LEVELS[idx];
   timeLeft=lv.time;startT=Date.now();
   shakeMag=0;powerActive=false;powerType=null;slowFactor=1;
+  // apply temp bonuses
+  if(tempBonus.extraTime){timeLeft+=10;tempBonus.extraTime=false;}
+  if(tempBonus.noBombs){lv._noBombs=true;}
 
-  // UI
   document.getElementById('score-display').textContent='0';
   document.getElementById('lvl-display').textContent=`${WORLDS[lv.world].name}  ·  NIVEAU ${idx+1}`;
   const lr=document.getElementById('lives-row');lr.innerHTML='';
@@ -898,13 +549,10 @@ function startLevel(idx){
   lvlLives=lv.lives;
   updateTimerRing();updateObjBar();
   showScreen('game');
-
   [spawnIv,tickIv,powerTimer].forEach(t=>{clearInterval(t);clearTimeout(t);});
-
   const rate=Math.max(300,900-idx*20);
   spawnIv=setInterval(spawnObj,rate);
   tickIv=setInterval(tickTimer,1000);
-
   if(animFr)cancelAnimationFrame(animFr);
   gameLoop();
 }
@@ -912,18 +560,9 @@ function startLevel(idx){
 // ══════════════════════════════════════════
 // ⏱ TIMER
 // ══════════════════════════════════════════
-function tickTimer(){
-  if(!running)return;
-  timeLeft--;
-  if(timeLeft<=3&&timeLeft>0)SFX.tick();
-  updateTimerRing();
-  if(timeLeft<=0)endGame(false);
-}
-
+function tickTimer(){if(!running)return;timeLeft--;if(timeLeft<=3&&timeLeft>0)SFX.tick();updateTimerRing();if(timeLeft<=0)endGame(false);}
 function updateTimerRing(){
-  const lv=LEVELS[curLvl];
-  const pct=timeLeft/lv.time;
-  const circ=157;
+  const lv=LEVELS[curLvl],pct=timeLeft/lv.time,circ=157;
   document.getElementById('timer-ring-fill').style.strokeDashoffset=(circ*(1-pct));
   document.getElementById('timer-ring-fill').style.stroke=timeLeft<=5?'#e07090':timeLeft<=10?'#e8c870':'#c8a8f0';
   document.getElementById('timer-num').textContent=timeLeft;
@@ -933,8 +572,7 @@ function updateTimerRing(){
 // 🎯 OBJ BAR
 // ══════════════════════════════════════════
 function updateObjBar(){
-  const lv=LEVELS[curLvl];
-  const pct=Math.min(caught/lv.goal,1)*100;
+  const lv=LEVELS[curLvl],pct=Math.min(caught/lv.goal,1)*100;
   document.getElementById('obj-fill').style.width=pct+'%';
   document.getElementById('obj-count').textContent=caught+' / '+lv.goal;
 }
@@ -946,31 +584,72 @@ function spawnObj(){
   if(!running)return;
   const lv=LEVELS[curLvl];
   const m=60,x=m+Math.random()*(gc2.width-m*2);
-  const bomb=Math.random()<lv.bombRate;
+  const bomb=lv._noBombs?false:Math.random()<lv.bombRate;
   const t=pickType(bomb);
-  objs.push({
-    x,y:-t.sz,vx:(Math.random()-.5)*1.2,
-    vy:lv.speed+Math.random()*1.2,
-    ...t,wobble:Math.random()*Math.PI*2,alpha:1,
-  });
+  objs.push({x,y:-t.sz,vx:(Math.random()-.5)*1.2,vy:lv.speed+Math.random()*1.2,...t,wobble:Math.random()*Math.PI*2,alpha:1,phase:Math.random()*Math.PI*2,age:0});
 }
 
 // ══════════════════════════════════════════
 // ✨ PARTICLES
 // ══════════════════════════════════════════
-function burst(x,y,col,n=10,big=false){
-  for(let i=0;i<n;i++){
-    const a=Math.PI*2*i/n+Math.random()*.3;
-    const sp=(big?4:2)+Math.random()*(big?7:4);
-    parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.5,col,life:1,sz:(big?4:2)+Math.random()*(big?5:3)});
-  }
-}
+function burst(x,y,col,n=10,big=false){for(let i=0;i<n;i++){const a=Math.PI*2*i/n+Math.random()*.3,sp=(big?4:2)+Math.random()*(big?7:4);parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.5,col,life:1,sz:(big?4:2)+Math.random()*(big?5:3)});}}
 
 // ══════════════════════════════════════════
 // 📳 SHAKE
 // ══════════════════════════════════════════
-function shake(m=10,d=350){
-  shakeMag=m;setTimeout(()=>{shakeMag=0;shakeX=0;shakeY=0;},d);
+function shake(m=10,d=350){shakeMag=m;setTimeout(()=>{shakeMag=0;shakeX=0;shakeY=0;},d);}
+
+// ══════════════════════════════════════════
+// 🎨 DRAW BOMB — distinct visual
+// ══════════════════════════════════════════
+function drawBomb(o){
+  const ctx=gx2,x=o.x,y=o.y,t=o.age*0.05;
+  o.age++;
+
+  // danger ring (pulsing)
+  const pulse=0.6+0.4*Math.abs(Math.sin(t*3));
+  ctx.save();
+  ctx.beginPath();ctx.arc(x,y,o.sz*0.9*pulse,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(255,60,60,${0.5*pulse})`;
+  ctx.lineWidth=2;ctx.shadowColor='#ff3030';ctx.shadowBlur=12*pulse;
+  ctx.stroke();
+  ctx.restore();
+
+  // outer danger ring 2
+  ctx.save();
+  ctx.beginPath();ctx.arc(x,y,o.sz*1.3,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(255,0,0,${0.15*pulse})`;
+  ctx.lineWidth=1;ctx.stroke();
+  ctx.restore();
+
+  // fuse spark
+  const sparkX=x+Math.cos(t*8)*4;
+  const sparkY=y-o.sz*0.7+Math.sin(t*8)*3;
+  ctx.save();
+  ctx.beginPath();ctx.arc(sparkX,sparkY,2+Math.random()*3,0,Math.PI*2);
+  ctx.fillStyle=`hsl(${40+Math.random()*30},100%,70%)`;
+  ctx.shadowColor='#ffaa00';ctx.shadowBlur=8;
+  ctx.fill();ctx.restore();
+
+  // skull/emoji body
+  ctx.save();ctx.globalAlpha=o.alpha;
+  ctx.translate(x,y);
+  ctx.rotate(Math.sin(o.wobble)*0.1);
+  // red glow bg
+  ctx.beginPath();ctx.arc(0,0,o.sz*0.6,0,Math.PI*2);
+  ctx.fillStyle=`rgba(200,0,0,${0.15*pulse})`;ctx.fill();
+  // emoji
+  ctx.font=`${o.sz}px serif`;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.shadowColor='#ff2020';ctx.shadowBlur=20;
+  ctx.fillText(o.em,0,0);
+  ctx.restore();
+
+  // WARNING triangle
+  ctx.save();ctx.globalAlpha=0.7*pulse;
+  ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='#ff4444';ctx.shadowColor='#ff0000';ctx.shadowBlur=6;
+  ctx.fillText('⚠',x,y+o.sz*0.85);
+  ctx.restore();
 }
 
 // ══════════════════════════════════════════
@@ -978,23 +657,15 @@ function shake(m=10,d=350){
 // ══════════════════════════════════════════
 function gameLoop(){
   if(!running)return;
-  if(shakeMag){shakeX=(Math.random()-.5)*shakeMag;shakeY=(Math.random()-.5)*shakeMag;}
-  else{shakeX=0;shakeY=0;}
-
+  if(shakeMag){shakeX=(Math.random()-.5)*shakeMag;shakeY=(Math.random()-.5)*shakeMag;}else{shakeX=0;shakeY=0;}
   gx2.save();gx2.translate(shakeX,shakeY);
   gx2.clearRect(-shakeX-2,-shakeY-2,gc2.width+4,gc2.height+4);
 
-  const lv=LEVELS[curLvl];
-  const wc=WORLDS[lv.world];
-
   // trails
   for(let i=trails.length-1;i>=0;i--){
-    const tr=trails[i];tr.life-=.06;
-    if(tr.life<=0){trails.splice(i,1);continue;}
-    gx2.save();gx2.globalAlpha=tr.life*.3;
-    gx2.fillStyle=tr.col;gx2.shadowColor=tr.col;gx2.shadowBlur=6;
-    gx2.beginPath();gx2.arc(tr.x,tr.y,tr.sz*tr.life,0,Math.PI*2);gx2.fill();
-    gx2.restore();
+    const tr=trails[i];tr.life-=.06;if(tr.life<=0){trails.splice(i,1);continue;}
+    gx2.save();gx2.globalAlpha=tr.life*.3;gx2.fillStyle=tr.col;gx2.shadowColor=tr.col;gx2.shadowBlur=6;
+    gx2.beginPath();gx2.arc(tr.x,tr.y,tr.sz*tr.life,0,Math.PI*2);gx2.fill();gx2.restore();
   }
 
   // objects
@@ -1005,43 +676,39 @@ function gameLoop(){
 
     if(o.t!=='bomb')trails.push({x:o.x,y:o.y,col:o.col,sz:o.sz/8,life:1});
 
-    if(o.y>gc2.height+60){
+    if(o.y>gc2.height+80){
       if(o.t!=='bomb'){SFX.miss();loseLife();combo=0;updateCombo();}
       objs.splice(i,1);continue;
     }
 
-    // glow for gold
-    if(o.special==='gold'){
-      gx2.save();
-      gx2.beginPath();gx2.arc(o.x,o.y,o.sz*.85,0,Math.PI*2);
-      gx2.strokeStyle=o.col;gx2.lineWidth=1.5;
-      gx2.globalAlpha=.3+.25*Math.abs(Math.sin(o.wobble*2));
-      gx2.shadowColor=o.col;gx2.shadowBlur=16;gx2.stroke();
-      gx2.restore();
+    if(o.special==='bomb'){
+      drawBomb(o);
+    } else {
+      // gold ring
+      if(o.special==='gold'){
+        gx2.save();
+        gx2.beginPath();gx2.arc(o.x,o.y,o.sz*.85,0,Math.PI*2);
+        gx2.strokeStyle=o.col;gx2.lineWidth=1.5;
+        gx2.globalAlpha=.3+.25*Math.abs(Math.sin(o.wobble*2));
+        gx2.shadowColor=o.col;gx2.shadowBlur=16;gx2.stroke();
+        gx2.restore();
+      }
+      gx2.save();gx2.globalAlpha=o.alpha;
+      gx2.translate(o.x,o.y);gx2.rotate(Math.sin(o.wobble)*.08);
+      gx2.font=`${o.sz}px serif`;gx2.textAlign='center';gx2.textBaseline='middle';
+      gx2.fillStyle=o.col;gx2.shadowColor=o.col;gx2.shadowBlur=18;
+      gx2.fillText(o.em,0,0);gx2.restore();
     }
-
-    gx2.save();
-    gx2.globalAlpha=o.alpha;
-    gx2.translate(o.x,o.y);gx2.rotate(Math.sin(o.wobble)*.08);
-    gx2.font=`${o.sz}px serif`;
-    gx2.textAlign='center';gx2.textBaseline='middle';
-    gx2.fillStyle=o.col;gx2.shadowColor=o.col;gx2.shadowBlur=18;
-    gx2.fillText(o.em,0,0);
-    gx2.restore();
   }
 
   // particles
   for(let i=parts.length-1;i>=0;i--){
-    const p=parts[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.life-=.03;
-    if(p.life<=0){parts.splice(i,1);continue;}
-    gx2.save();gx2.globalAlpha=p.life;
-    gx2.fillStyle=p.col;gx2.shadowColor=p.col;gx2.shadowBlur=6;
-    gx2.beginPath();gx2.arc(p.x,p.y,p.sz*p.life,0,Math.PI*2);gx2.fill();
-    gx2.restore();
+    const p=parts[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.life-=.03;if(p.life<=0){parts.splice(i,1);continue;}
+    gx2.save();gx2.globalAlpha=p.life;gx2.fillStyle=p.col;gx2.shadowColor=p.col;gx2.shadowBlur=6;
+    gx2.beginPath();gx2.arc(p.x,p.y,p.sz*p.life,0,Math.PI*2);gx2.fill();gx2.restore();
   }
 
-  gx2.restore();
-  updateObjBar();
+  gx2.restore();updateObjBar();
   animFr=requestAnimationFrame(gameLoop);
 }
 
@@ -1050,59 +717,30 @@ function gameLoop(){
 // ══════════════════════════════════════════
 function handleTap(cx,cy){
   if(!running)return;
-  const ring=document.createElement('div');ring.className='tap-ring';
-  ring.style.left=cx+'px';ring.style.top=cy+'px';
-  document.body.appendChild(ring);setTimeout(()=>ring.remove(),500);
+  const ring=document.createElement('div');ring.className='tap-ring';ring.style.left=cx+'px';ring.style.top=cy+'px';document.body.appendChild(ring);setTimeout(()=>ring.remove(),500);
 
   for(let i=objs.length-1;i>=0;i--){
     const o=objs[i];
     if(Math.hypot(cx-o.x,cy-o.y)<o.sz+16){
       objs.splice(i,1);
       if(o.t==='bomb'){
-        if(powerActive&&powerType==='shield'){
-          burst(o.x,o.y,'#a78bca',14);
-          floatTxt(o.x,o.y,'🛡 BOUCLIER','#a78bca');
-          powerActive=false;clearTimeout(powerTimer);updatePowerUI(false);
-        }else{
-          burst(o.x,o.y,'#e07090',16,true);
-          shake();flash('rgba(224,112,144,0.18)');
-          SFX.bomb();loseLife();combo=0;updateCombo();
-          floatTxt(o.x,o.y,'✕','#e07090');
-        }
+        if(powerActive&&powerType==='shield'){burst(o.x,o.y,'#a78bca',14);floatTxt(o.x,o.y,'🛡 BOUCLIER','#a78bca');powerActive=false;clearTimeout(powerTimer);}
+        else{burst(o.x,o.y,'#e07090',16,true);shake();flash('rgba(224,112,144,0.18)');SFX.bomb();loseLife();combo=0;updateCombo();floatTxt(o.x,o.y,'💥 BOMBE','#e07090');}
       }else{
         combo++;maxCombo=Math.max(maxCombo,combo);caught++;
-        const mult=Math.min(Math.floor(combo/4)+1,4);
-        let pts=o.pts*mult;
-
-        if(o.special==='gold'){
-          pts*=2;burst(o.x,o.y,'#ffd700',18,true);
-          flash('rgba(232,200,112,0.1)');SFX.gold();
-          floatTxt(o.x,o.y,'✶ ×2','#ffd700');
-        }else{
-          burst(o.x,o.y,o.col);SFX.catch();
-          if(mult>1)floatTxt(o.x,o.y,'+'+pts+' ×'+mult,o.col);
-          else floatTxt(o.x,o.y,'+'+pts,o.col);
-        }
-
-        score+=pts;
-        document.getElementById('score-display').textContent=score;
-        animEl(document.getElementById('score-display'));
-        updateCombo();
-        if(combo>0&&combo%4===0)SFX.combo();
-
-        // power unlock
+        const mult=Math.min(Math.floor(combo/4)+1,4);let pts=o.pts*mult;
+        if(o.special==='gold'){pts*=2;burst(o.x,o.y,'#ffd700',18,true);flash('rgba(232,200,112,0.1)');SFX.gold();floatTxt(o.x,o.y,'✶ ×2','#ffd700');}
+        else{burst(o.x,o.y,o.col);SFX.catch();if(mult>1)floatTxt(o.x,o.y,'+'+pts+' ×'+mult,o.col);else floatTxt(o.x,o.y,'+'+pts,o.col);}
+        score+=pts;document.getElementById('score-display').textContent=score;animEl(document.getElementById('score-display'));
+        updateCombo();if(combo>0&&combo%4===0)SFX.combo();
         const lv=LEVELS[curLvl];
-        if(lv.power!=='none'&&combo===8&&!powerActive){
-          activatePower(lv.power,o.x,o.y);
-        }
-
+        if(lv.power!=='none'&&combo===8&&!powerActive)activatePower(lv.power,o.x,o.y);
         if(caught>=lv.goal)endGame(true);
       }
       break;
     }
   }
 }
-
 gc2.addEventListener('click',e=>handleTap(e.clientX,e.clientY));
 gc2.addEventListener('touchstart',e=>{e.preventDefault();Array.from(e.changedTouches).forEach(t=>handleTap(t.clientX,t.clientY));},{passive:false});
 
@@ -1110,234 +748,232 @@ gc2.addEventListener('touchstart',e=>{e.preventDefault();Array.from(e.changedTou
 // 💫 COMBO
 // ══════════════════════════════════════════
 let comboTm;
-function updateCombo(){
-  const m=document.getElementById('combo-mult'),l=document.getElementById('combo-lbl');
-  if(combo>=4){
-    const mult=Math.min(Math.floor(combo/4)+1,4);
-    m.textContent='×'+mult;m.classList.add('show');l.classList.add('show');
-    clearTimeout(comboTm);comboTm=setTimeout(()=>{m.classList.remove('show');l.classList.remove('show');},1800);
-  }else{m.classList.remove('show');l.classList.remove('show');}
-}
+function updateCombo(){const m=document.getElementById('combo-mult'),l=document.getElementById('combo-lbl');if(combo>=4){const mult=Math.min(Math.floor(combo/4)+1,4);m.textContent='×'+mult;m.classList.add('show');l.classList.add('show');clearTimeout(comboTm);comboTm=setTimeout(()=>{m.classList.remove('show');l.classList.remove('show');},1800);}else{m.classList.remove('show');l.classList.remove('show');}}
 
 // ══════════════════════════════════════════
 // ⚡ POWERS
 // ══════════════════════════════════════════
-function activatePower(type,x,y){
-  powerActive=true;powerType=type;SFX.powerup();
-  if(type==='shield'){
-    floatTxt(x,y,'🛡 BOUCLIER','#a78bca');
-    showToast('🛡 Bouclier actif — une bombe absorbée !');
-    powerTimer=setTimeout(()=>{powerActive=false;updatePowerUI(false);},10000);
-  }else if(type==='slow'){
-    floatTxt(x,y,'⏳ RALENTI','#90e8ff');
-    showToast('⏳ Temps ralenti !');
-    slowFactor=0.45;
-    powerTimer=setTimeout(()=>{powerActive=false;slowFactor=1;updatePowerUI(false);},6000);
-  }
-  updatePowerUI(true,type);
-}
-function updatePowerUI(on,type){
-  // simple toast-based indicator
-}
+function activatePower(type,x,y){powerActive=true;powerType=type;SFX.powerup();if(type==='shield'){floatTxt(x,y,'🛡 BOUCLIER','#a78bca');showToast('🛡 Bouclier actif !');powerTimer=setTimeout(()=>{powerActive=false;},10000);}else if(type==='slow'){floatTxt(x,y,'⏳ RALENTI','#90e8ff');showToast('⏳ Temps ralenti !');slowFactor=0.45;powerTimer=setTimeout(()=>{powerActive=false;slowFactor=1;},6000);}}
 
 // ══════════════════════════════════════════
 // 💜 LOSE LIFE
 // ══════════════════════════════════════════
-function loseLife(){
-  lvlLives=Math.max(0,lvlLives-1);
-  const els=document.querySelectorAll('.life');
-  for(let i=els.length-1;i>=0;i--){
-    if(!els[i].classList.contains('lost')){els[i].classList.add('lost');break;}
-  }
-  if(lvlLives<=0)endGame(false);
-}
+function loseLife(){lvlLives=Math.max(0,lvlLives-1);const els=document.querySelectorAll('.life');for(let i=els.length-1;i>=0;i--){if(!els[i].classList.contains('lost')){els[i].classList.add('lost');break;}}if(lvlLives<=0)endGame(false);}
 
 // ══════════════════════════════════════════
 // 🏁 END GAME
 // ══════════════════════════════════════════
 function endGame(won){
-  running=false;
-  [spawnIv,tickIv,powerTimer].forEach(t=>{clearInterval(t);clearTimeout(t);});
-  cancelAnimationFrame(animFr);
+  running=false;[spawnIv,tickIv,powerTimer].forEach(t=>{clearInterval(t);clearTimeout(t);});cancelAnimationFrame(animFr);
+  const lv=LEVELS[curLvl];lv._noBombs=false;
   const elapsed=Math.round((Date.now()-startT)/1000);
-
   if(won){
-    SFX.win();
-    const lv=LEVELS[curLvl];
-    const stars=lvlLives===lv.lives?3:lvlLives>0?2:1;
-    const old=getLvlData(curLvl);
-    saveLvlData(curLvl,{stars:Math.max(old.stars||0,stars),unlocked:true});
+    SFX.win();const stars=lvlLives===lv.lives?3:lvlLives>0?2:1;
+    const old=getLvlData(curLvl);saveLvlData(curLvl,{stars:Math.max(old.stars||0,stars),unlocked:true});
     if(curLvl+1<LEVELS.length)saveLvlData(curLvl+1,{...getLvlData(curLvl+1),unlocked:true});
     const d=getSave();if(score>(d.best||0)){d.best=score;putSave(d);}
-    // gem reward
     addGems(stars*2+Math.floor(score/200));
-
-    document.getElementById('lc-score').textContent=score;
-    document.getElementById('lc-combo').textContent='×'+maxCombo;
-    document.getElementById('lc-caught').textContent=caught;
-    document.getElementById('lc-time').textContent=elapsed+'s';
-    [1,2,3].forEach((n,i)=>{
-      const el=document.getElementById('ls'+(i+1));el.classList.remove('lit');
-      if(n<=stars)setTimeout(()=>el.classList.add('lit'),300+i*220);
-    });
+    document.getElementById('lc-score').textContent=score;document.getElementById('lc-combo').textContent='×'+maxCombo;document.getElementById('lc-caught').textContent=caught;document.getElementById('lc-time').textContent=elapsed+'s';
+    [1,2,3].forEach((n,i)=>{const el=document.getElementById('ls'+(i+1));el.classList.remove('lit');if(n<=stars)setTimeout(()=>el.classList.add('lit'),300+i*220);});
     document.getElementById('btn-next').style.display=curLvl+1<LEVELS.length?'':'none';
     setTimeout(()=>showScreen('levelcomplete'),500);
   }else{
-    SFX.lose();
-    document.getElementById('go-score').textContent=score;
-    document.getElementById('go-obj').textContent=caught+'/'+LEVELS[curLvl].goal;
+    SFX.lose();document.getElementById('go-score').textContent=score;document.getElementById('go-obj').textContent=caught+'/'+lv.goal;
     setTimeout(()=>showScreen('gameover'),500);
   }
 }
 
 // ══════════════════════════════════════════
-// 🛍 SHOP
+// 🛍 SHOP (tabbed)
 // ══════════════════════════════════════════
-const SHOP_ITEMS=[
-  {id:'life_refill',name:'Vies pleines',desc:'Recharge tes 5 vies immédiatement.',em:'❤️',cost:20,type:'gems'},
-  {id:'no_bombs',name:'Sans bombes',desc:'Un niveau sans bombe (usage unique).',em:'🌸',cost:30,type:'gems'},
-  {id:'extra_time',name:'+10 secondes',desc:'Ajoute 10s au prochain niveau.',em:'⏳',cost:25,type:'gems'},
-  {id:'theme_gold',name:'Thème Or',desc:'Interface dorée exclusive.',em:'✨',cost:80,type:'gems',cosmetic:true},
-];
-
-const GEM_PACKS=[
-  {id:'g1',gems:50, label:'Starter',price:'0,99 €'},
-  {id:'g2',gems:150,label:'Aventurier',price:'2,49 €'},
-  {id:'g3',gems:400,label:'Maître',price:'5,99 €'},
-];
-
-let tempBonus={noBombs:false,extraTime:false};
+let activeShopTab='themes';
+function switchShopTab(tab,el){
+  activeShopTab=tab;
+  document.querySelectorAll('.shop-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderShopContent();
+}
 
 function buildShop(){
   document.getElementById('gem-count-shop').textContent=getGems();
+  renderShopContent();
+}
+
+function renderShopContent(){
   const c=document.getElementById('shop-content');c.innerHTML='';
+  if(activeShopTab==='themes')renderThemes(c);
+  else if(activeShopTab==='skins')renderSkins(c);
+  else if(activeShopTab==='boosts')renderBoosts(c);
+  else if(activeShopTab==='gems')renderGems(c);
+}
 
-  // gem packs
-  const gSec=document.createElement('div');gSec.className='shop-section';
-  gSec.innerHTML=`<div class="shop-section-title">💎 ACHETER DES GEMMES</div>
-    <div class="gem-packs">${GEM_PACKS.map(p=>`
-      <div class="gem-pack" onclick="buyGems('${p.id}',${p.gems},'${p.price}')">
-        <div class="gem-pack-val">${p.gems}</div>
-        <div class="gem-pack-label">${p.label}</div>
-        <div class="gem-pack-price">${p.price}</div>
-      </div>`).join('')}</div>`;
-  c.appendChild(gSec);
+function renderThemes(c){
+  const active=getActiveTheme();
+  const sec=document.createElement('div');sec.className='shop-section';
+  sec.innerHTML=`<div class="shop-section-title">🎨 THÈMES D'INTERFACE</div>
+  <div class="theme-grid">${THEMES.map(th=>{
+    const owned=th.free||getOwned('theme_'+th.id);
+    const isActive=active===th.id;
+    const [c1,c2,c3]=th.colors;
+    return `<div class="theme-card ${owned?(isActive?'owned active-theme':'owned'):''}" onclick="handleThemeClick('${th.id}')">
+      <div class="theme-preview" style="background:linear-gradient(135deg,${c1},${c2},${c3});">
+        <span style="font-size:24px;z-index:1">✦</span>
+        <span style="font-size:18px;z-index:1;opacity:.7">✧</span>
+        <span style="font-size:20px;z-index:1;opacity:.5">⬡</span>
+        ${owned?`<span class="theme-badge ${isActive?'active':'owned'}">${isActive?'ACTIF':'ACQUIS'}</span>`:`<span class="theme-badge locked">🔒 ${th.cost}💎</span>`}
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">${th.name}</div>
+        <div class="theme-price-tag" style="color:${owned?(isActive?'var(--gold)':'rgba(200,212,232,0.4)'):' var(--cyan)'}">
+          ${owned?(isActive?'✓ Actif':'Appuyer pour activer'):`💎 ${th.cost} gemmes`}
+        </div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+  c.appendChild(sec);
 
-  // items
-  const iSec=document.createElement('div');iSec.className='shop-section';
-  iSec.innerHTML=`<div class="shop-section-title">🛍 AMÉLIORATIONS</div><div class="shop-grid">${
-    SHOP_ITEMS.map(it=>{
-      const owned=it.cosmetic&&getOwned(it.id);
-      return `<div class="shop-item${owned?' owned':''}" onclick="buyItem('${it.id}')">
-        <div class="shop-emoji">${it.em}</div>
-        <div class="shop-name">${it.name}</div>
-        <div class="shop-desc">${it.desc}</div>
-        <div class="shop-price">💎 ${owned?'<span style="color:var(--gold)">ACQUIS</span>':it.cost}</div>
-      </div>`;
-    }).join('')
+  // desc below
+  const desc=document.createElement('p');desc.style.cssText='font-size:11px;color:rgba(200,212,232,0.25);text-align:center;margin-top:8px;font-style:italic;';
+  desc.textContent=THEMES.find(t=>t.id===active)?.desc||'';
+  c.appendChild(desc);
+}
+
+function handleThemeClick(id){
+  const th=THEMES.find(t=>t.id===id);if(!th)return;
+  const owned=th.free||getOwned('theme_'+id);
+  if(owned){setActiveTheme(id);buildShop();showToast(`🎨 Thème "${th.name}" activé !`);}
+  else{
+    if(getGems()<th.cost){showToast('Pas assez de gemmes ! 💎');return;}
+    showModal(`<div class="modal-title">🎨 ${th.name}</div><div class="modal-desc">${th.desc}<br><br>Coût : <strong style="color:var(--cyan)">${th.cost} 💎</strong></div><div class="modal-btns"><button class="btn-gold" onclick="confirmBuyTheme('${id}')">ACHETER & ACTIVER</button><button class="btn-ghost" onclick="hideModal()">ANNULER</button></div>`);
+  }
+}
+function confirmBuyTheme(id){
+  const th=THEMES.find(t=>t.id===id);
+  if(!spendGems(th.cost)){showToast('Pas assez de gemmes !');hideModal();return;}
+  setOwned('theme_'+id);setActiveTheme(id);hideModal();buildShop();showToast(`✨ Thème "${th.name}" débloqué !`);
+}
+
+function renderSkins(c){
+  const activeSkin=getActiveSkin();
+  const sec=document.createElement('div');sec.className='shop-section';
+  sec.innerHTML=`<div class="shop-section-title">✦ SKINS D'ÉTOILES — aussi les bombes !</div>
+  <div class="skin-grid">${SKINS.map(sk=>{
+    const owned=sk.free||getOwned('skin_'+sk.id);
+    const isActive=activeSkin===sk.id;
+    const col=sk.em[3]==='✶'?'#ffd700':sk.em[0]==='💎'?'#90e8ff':sk.em[0]==='🔥'?'#ff6030':'#60d4f0';
+    return `<div class="skin-card ${owned?(isActive?'owned active-skin':'owned'):''}" onclick="handleSkinClick('${sk.id}')">
+      ${owned?`<span class="skin-badge ${isActive?'active':'owned-badge'}">${isActive?'ON':' ✓'}</span>`:''}
+      <span class="skin-preview" style="color:${col}">${sk.em[0]}</span>
+      <div style="font-size:11px;color:rgba(200,212,232,0.3);margin-bottom:4px">bombe : ${sk.bombEm}</div>
+      <div class="skin-name">${sk.name}</div>
+      <div class="skin-price ${sk.free||owned?'free':''}">${owned?'ACQUIS':sk.free?'GRATUIT':'💎 '+sk.cost}</div>
+    </div>`;
+  }).join('')}</div>`;
+  c.appendChild(sec);
+
+  // preview row of active skin
+  const sk=getActiveSkinData();
+  const prev=document.createElement('div');
+  prev.style.cssText='text-align:center;margin-top:16px;padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;';
+  prev.innerHTML=`<div style="font-size:10px;letter-spacing:.4em;color:rgba(200,212,232,0.25);margin-bottom:10px">APERÇU DU SKIN ACTIF</div>
+  <div style="display:flex;justify-content:center;gap:16px;font-size:28px">${sk.em.map(e=>`<span style="filter:drop-shadow(0 0 8px #fff8)">${e}</span>`).join('')}</div>
+  <div style="margin-top:8px;font-size:12px;color:rgba(200,212,232,0.4)">bombe → <span style="font-size:20px">${sk.bombEm}</span></div>`;
+  c.appendChild(prev);
+}
+
+function handleSkinClick(id){
+  const sk=SKINS.find(s=>s.id===id);if(!sk)return;
+  const owned=sk.free||getOwned('skin_'+id);
+  if(owned){setActiveSkin(id);buildShop();showToast(`✦ Skin "${sk.name}" activé !`);}
+  else{
+    if(getGems()<sk.cost){showToast('Pas assez de gemmes ! 💎');return;}
+    showModal(`<div class="modal-title">✦ ${sk.name}</div><div class="modal-desc">${sk.desc}<br><br>Coût : <strong style="color:var(--cyan)">${sk.cost} 💎</strong></div><div class="modal-btns"><button class="btn-gold" onclick="confirmBuySkin('${id}')">ACHETER & ACTIVER</button><button class="btn-ghost" onclick="hideModal()">ANNULER</button></div>`);
+  }
+}
+function confirmBuySkin(id){
+  const sk=SKINS.find(s=>s.id===id);
+  if(!spendGems(sk.cost)){showToast('Pas assez de gemmes !');hideModal();return;}
+  setOwned('skin_'+id);setActiveSkin(id);hideModal();buildShop();showToast(`✦ Skin "${sk.name}" débloqué !`);
+}
+
+function renderBoosts(c){
+  const BOOST_ITEMS=[
+    {id:'life_refill',name:'Vies pleines',desc:'Recharge tes 5 vies immédiatement.',em:'❤️',cost:20},
+    {id:'no_bombs',name:'Sans bombes',desc:'Un niveau sans bombe (usage unique).',em:'🌸',cost:30},
+    {id:'extra_time',name:'+10 secondes',desc:'Ajoute 10s au prochain niveau.',em:'⏳',cost:25},
+    {id:'double_gems',name:'×2 Gemmes',desc:'Double les gemmes du prochain niveau.',em:'💎',cost:35},
+  ];
+  const sec=document.createElement('div');sec.className='shop-section';
+  sec.innerHTML=`<div class="shop-section-title">⚡ BOOSTS DE PARTIE</div><div class="shop-grid">${
+    BOOST_ITEMS.map(it=>`<div class="shop-item" onclick="buyBoost('${it.id}')">
+      <div class="shop-emoji">${it.em}</div>
+      <div class="shop-name">${it.name}</div>
+      <div class="shop-desc">${it.desc}</div>
+      <div class="shop-price">💎 ${it.cost}</div>
+    </div>`).join('')
   }</div>`;
-  c.appendChild(iSec);
+  c.appendChild(sec);
 
   // rewarded ad
   const adSec=document.createElement('div');adSec.className='shop-section';
   adSec.innerHTML=`<div class="shop-section-title">📺 PUBLICITÉ RÉCOMPENSÉE</div>
-    <div class="shop-item" onclick="watchAdGems()" style="grid-column:span 2;display:flex;align-items:center;gap:14px;text-align:left;">
-      <div style="font-size:36px">📺</div>
-      <div><div class="shop-name">Regarder une pub</div><div class="shop-desc">Gagne 15 gemmes gratuitement en regardant une courte publicité.</div></div>
-      <div class="shop-price" style="margin-left:auto;white-space:nowrap">+15 💎</div>
-    </div>`;
+  <div class="shop-item" onclick="watchAdGems()" style="grid-column:span 2;display:flex;align-items:center;gap:14px;text-align:left;">
+    <div style="font-size:36px">📺</div>
+    <div><div class="shop-name">Regarder une pub</div><div class="shop-desc">Gagne 15 gemmes gratuitement.</div></div>
+    <div class="shop-price" style="margin-left:auto;white-space:nowrap">+15 💎</div>
+  </div>`;
   c.appendChild(adSec);
 }
 
-function buyGems(id,n,price){
-  // In production: integrate StoreKit / RevenueCat here
-  showModal(`
-    <div class="modal-title">Acheter ${n} gemmes</div>
-    <div class="modal-desc">Prix : <strong style="color:var(--gold)">${price}</strong><br><br>
-    En production, ceci ouvre le paiement Apple/Google.<br>Pour la démo, les gemmes sont ajoutées directement.</div>
-    <div class="modal-btns">
-      <button class="btn-gold" onclick="addGems(${n});hideModal();buildShop();showToast('💎 ${n} gemmes ajoutées !')">SIMULER L'ACHAT</button>
-      <button class="btn-ghost" onclick="hideModal()">ANNULER</button>
-    </div>
-  `);
-}
+const BOOST_DEFS={
+  life_refill:{name:'Vies pleines',em:'❤️',cost:20,desc:'Recharge tes 5 vies immédiatement.'},
+  no_bombs:{name:'Sans bombes',em:'🌸',cost:30,desc:'Un niveau sans bombe (usage unique).'},
+  extra_time:{name:'+10 secondes',em:'⏳',cost:25,desc:'Ajoute 10s au prochain niveau.'},
+  double_gems:{name:'×2 Gemmes',em:'💎',cost:35,desc:'Double les gemmes du prochain niveau.'},
+};
 
-function buyItem(id){
-  const item=SHOP_ITEMS.find(i=>i.id===id);if(!item)return;
-  if(item.cosmetic&&getOwned(id)){showToast('Déjà acquis !');return;}
+function buyBoost(id){
+  const item=BOOST_DEFS[id];if(!item)return;
   if(getGems()<item.cost){showToast('Pas assez de gemmes ! 💎');return;}
-  showModal(`
-    <div class="modal-title">${item.em} ${item.name}</div>
-    <div class="modal-desc">${item.desc}<br><br>Coût : <strong style="color:var(--cyan)">${item.cost} 💎</strong></div>
-    <div class="modal-btns">
-      <button class="btn-gold" onclick="confirmBuy('${id}')">ACHETER</button>
-      <button class="btn-ghost" onclick="hideModal()">ANNULER</button>
-    </div>
-  `);
+  showModal(`<div class="modal-title">${item.em} ${item.name}</div><div class="modal-desc">${item.desc}<br><br>Coût : <strong style="color:var(--cyan)">${item.cost} 💎</strong></div><div class="modal-btns"><button class="btn-gold" onclick="confirmBoost('${id}')">ACHETER</button><button class="btn-ghost" onclick="hideModal()">ANNULER</button></div>`);
 }
-
-function confirmBuy(id){
-  const item=SHOP_ITEMS.find(i=>i.id===id);
+function confirmBoost(id){
+  const item=BOOST_DEFS[id];
   if(!spendGems(item.cost)){showToast('Pas assez de gemmes !');hideModal();return;}
   hideModal();
   if(id==='life_refill'){refillLives();showToast('❤️ Vies rechargées !');}
   else if(id==='no_bombs'){tempBonus.noBombs=true;showToast('🌸 Sans bombes au prochain niveau !');}
   else if(id==='extra_time'){tempBonus.extraTime=true;showToast('⏳ +10 secondes au prochain niveau !');}
-  else if(item.cosmetic){setOwned(id);showToast('✨ Thème débloqué !');}
+  else if(id==='double_gems'){tempBonus.doubleGems=true;showToast('💎 Gemmes ×2 au prochain niveau !');}
   buildShop();
 }
 
-function watchAdGems(){
-  showModal(`
-    <div class="modal-title">📺 Publicité récompensée</div>
-    <div class="modal-desc">En production, une vraie publicité jouerait ici via AdMob ou AppLovin.<br><br>Pour la démo, tu reçois directement 15 gemmes.</div>
-    <div class="modal-btns">
-      <button class="btn-gold" onclick="addGems(15);hideModal();buildShop();showToast('💎 +15 gemmes !')">SIMULER LA PUB</button>
-      <button class="btn-ghost" onclick="hideModal()">ANNULER</button>
-    </div>
-  `);
+function renderGems(c){
+  const GEM_PACKS=[{id:'g1',gems:50,label:'Starter',price:'0,99 €'},{id:'g2',gems:150,label:'Aventurier',price:'2,49 €'},{id:'g3',gems:400,label:'Maître',price:'5,99 €'}];
+  const sec=document.createElement('div');sec.className='shop-section';
+  sec.innerHTML=`<div class="shop-section-title">💎 ACHETER DES GEMMES</div><div class="gem-packs">${GEM_PACKS.map(p=>`<div class="gem-pack" onclick="buyGems('${p.id}',${p.gems},'${p.price}')"><div class="gem-pack-val">${p.gems}</div><div class="gem-pack-label">${p.label}</div><div class="gem-pack-price">${p.price}</div></div>`).join('')}</div>`;
+  c.appendChild(sec);
 }
 
-function watchAdContinue(){
-  showModal(`
-    <div class="modal-title">📺 Continuer la partie</div>
-    <div class="modal-desc">Regarde une courte publicité pour continuer avec 1 vie.</div>
-    <div class="modal-btns">
-      <button class="btn-gold" onclick="adContinueConfirm()">REGARDER</button>
-      <button class="btn-ghost" onclick="hideModal()">ABANDONNER</button>
-    </div>
-  `);
+function buyGems(id,n,price){
+  showModal(`<div class="modal-title">Acheter ${n} gemmes</div><div class="modal-desc">Prix : <strong style="color:var(--gold)">${price}</strong><br><br>En production, ceci ouvre le paiement Apple/Google.<br>Pour la démo, les gemmes sont ajoutées directement.</div><div class="modal-btns"><button class="btn-gold" onclick="addGems(${n});hideModal();buildShop();showToast('💎 ${n} gemmes ajoutées !')">SIMULER L'ACHAT</button><button class="btn-ghost" onclick="hideModal()">ANNULER</button></div>`);
 }
-function adContinueConfirm(){
-  hideModal();
-  // give 1 life and restart from where we are
-  const d=getSave();d.lives=Math.min(MAX_LIVES,(d.lives||0)+1);putSave(d);
-  startLevel(curLvl);
-}
+
+function watchAdGems(){showModal(`<div class="modal-title">📺 Publicité récompensée</div><div class="modal-desc">En production, une vraie pub jouerait ici.<br><br>Pour la démo, tu reçois 15 gemmes.</div><div class="modal-btns"><button class="btn-gold" onclick="addGems(15);hideModal();buildShop();showToast('💎 +15 gemmes !')">SIMULER</button><button class="btn-ghost" onclick="hideModal()">ANNULER</button></div>`);}
+function watchAdContinue(){showModal(`<div class="modal-title">📺 Continuer la partie</div><div class="modal-desc">Regarde une courte pub pour continuer avec 1 vie.</div><div class="modal-btns"><button class="btn-gold" onclick="adContinueConfirm()">REGARDER</button><button class="btn-ghost" onclick="hideModal()">ABANDONNER</button></div>`);}
+function adContinueConfirm(){hideModal();const d=getSave();d.lives=Math.min(MAX_LIVES,(d.lives||0)+1);putSave(d);startLevel(curLvl);}
+
+let tempBonus={noBombs:false,extraTime:false,doubleGems:false};
 
 // ══════════════════════════════════════════
 // ❤️ NO LIVES MODAL
 // ══════════════════════════════════════════
 function showNoLivesModal(){
   const{lives,lastRegen}=getLivesData();
-  const nextMs=REGEN_MS-(Date.now()-lastRegen)%REGEN_MS;
-  const mins=Math.ceil(nextMs/60000);
-  showModal(`
-    <div class="lives-empty">
-      <div class="lives-empty-icon">💔</div>
-      <div class="lives-empty-title">Plus de vies !</div>
-      <div class="lives-empty-desc">Prochaine vie dans <strong style="color:var(--gold)">${mins} min</strong>.<br>Ou recharge maintenant avec des gemmes.</div>
-      <div class="modal-btns">
-        <button class="btn-gold" onclick="refillViaGems()">💎 20 gemmes → 5 vies</button>
-        <button class="btn-ghost" onclick="hideModal()">ATTENDRE</button>
-      </div>
-    </div>
-  `);
+  const nextMs=REGEN_MS-(Date.now()-lastRegen)%REGEN_MS,mins=Math.ceil(nextMs/60000);
+  showModal(`<div class="lives-empty"><div class="lives-empty-icon">💔</div><div class="lives-empty-title">Plus de vies !</div><div class="lives-empty-desc">Prochaine vie dans <strong style="color:var(--gold)">${mins} min</strong>.<br>Ou recharge avec des gemmes.</div><div class="modal-btns"><button class="btn-gold" onclick="refillViaGems()">💎 20 gemmes → 5 vies</button><button class="btn-ghost" onclick="hideModal()">ATTENDRE</button></div></div>`);
 }
-function refillViaGems(){
-  if(!spendGems(20)){showToast('Pas assez de gemmes !');hideModal();return;}
-  refillLives();hideModal();showToast('❤️ Vies rechargées !');
-}
+function refillViaGems(){if(!spendGems(20)){showToast('Pas assez de gemmes !');hideModal();return;}refillLives();hideModal();showToast('❤️ Vies rechargées !');}
 
 // ══════════════════════════════════════════
 // 🗺 LEVEL SELECT
@@ -1349,14 +985,10 @@ function buildLevels(){
     const div=document.createElement('div');
     div.innerHTML=`<div class="world-label" style="color:${w.accent}">${w.name}</div>
     <div class="levels-grid">${wLevels.map((lv,li)=>{
-      const idx=wi*10+li;const ld=getLvlData(idx);
+      const idx=wi*10+li,ld=getLvlData(idx);
       const starStr=ld.unlocked?'★'.repeat(ld.stars||0)+'☆'.repeat(3-(ld.stars||0)):'';
-      const cls=ld.unlocked?(ld.stars?'done':''):'locked';
-      const col=ld.unlocked?w.accent:'rgba(200,212,232,0.15)';
-      return `<button class="lvl-btn ${cls}" style="--acc:${w.color}" onclick="${ld.unlocked?`startLevel(${idx})`:''}">
-        <span style="color:${col}">${idx+1}</span>
-        <span class="lvl-stars" style="color:${col};opacity:.5">${starStr}</span>
-      </button>`;
+      const cls=ld.unlocked?(ld.stars?'done':''):'locked',col=ld.unlocked?w.accent:'rgba(200,212,232,0.15)';
+      return `<button class="lvl-btn ${cls}" onclick="${ld.unlocked?`startLevel(${idx})`:''}"><span style="color:${col}">${idx+1}</span><span class="lvl-stars" style="color:${col};opacity:.5">${starStr}</span></button>`;
     }).join('')}</div>`;
     wrap.appendChild(div);
   });
@@ -1376,51 +1008,23 @@ function updateHome(){
 // ══════════════════════════════════════════
 function nextLevel(){if(curLvl+1<LEVELS.length)startLevel(curLvl+1);else{showScreen('levels');buildLevels();}}
 function replayLevel(){startLevel(curLvl);}
-function goHome(){
-  running=false;
-  [spawnIv,tickIv,powerTimer].forEach(t=>{clearInterval(t);clearTimeout(t);});
-  cancelAnimationFrame(animFr);
-  updateHome();showScreen('home');
-}
-
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-}
+function goHome(){running=false;[spawnIv,tickIv,powerTimer].forEach(t=>{clearInterval(t);clearTimeout(t);});cancelAnimationFrame(animFr);updateHome();showScreen('home');}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');}
 
 // ══════════════════════════════════════════
 // 🎨 UI HELPERS
 // ══════════════════════════════════════════
-function floatTxt(x,y,txt,col){
-  const el=document.createElement('div');el.className='float-pt';el.textContent=txt;
-  el.style.left=x+'px';el.style.top=y+'px';el.style.color=col;el.style.textShadow='0 0 12px '+col;
-  document.body.appendChild(el);setTimeout(()=>el.remove(),900);
-}
-function flash(col){
-  const f=document.getElementById('flash');f.style.background=col;f.style.opacity='1';f.style.transition='none';
-  requestAnimationFrame(()=>{f.style.transition='opacity .4s';f.style.opacity='0';});
-}
-function animEl(el){
-  el.style.transition='none';el.style.transform='scale(1.2)';
-  setTimeout(()=>{el.style.transition='transform .2s';el.style.transform='scale(1)';},0);
-}
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  clearTimeout(t._tm);t._tm=setTimeout(()=>t.classList.remove('show'),2200);
-}
-function showModal(html){
-  document.getElementById('modal-content').innerHTML=html;
-  document.getElementById('modal').classList.add('show');
-}
+function floatTxt(x,y,txt,col){const el=document.createElement('div');el.className='float-pt';el.textContent=txt;el.style.left=x+'px';el.style.top=y+'px';el.style.color=col;el.style.textShadow='0 0 12px '+col;document.body.appendChild(el);setTimeout(()=>el.remove(),900);}
+function flash(col){const f=document.getElementById('flash');f.style.background=col;f.style.opacity='1';f.style.transition='none';requestAnimationFrame(()=>{f.style.transition='opacity .4s';f.style.opacity='0';});}
+function animEl(el){el.style.transition='none';el.style.transform='scale(1.2)';setTimeout(()=>{el.style.transition='transform .2s';el.style.transform='scale(1)';},0);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._tm);t._tm=setTimeout(()=>t.classList.remove('show'),2200);}
+function showModal(html){document.getElementById('modal-content').innerHTML=html;document.getElementById('modal').classList.add('show');}
 function hideModal(){document.getElementById('modal').classList.remove('show');}
-
-// click outside modal closes it
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))hideModal();});
 
 // ── INIT ──
+applyTheme(getActiveTheme());
 updateHome();
-
-// start music on first user interaction
 document.addEventListener('click',()=>startMusic(),{once:true});
 document.addEventListener('touchstart',()=>startMusic(),{once:true});
 </script>
